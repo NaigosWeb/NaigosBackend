@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.miaoyu.naigosbackend.user.mapper.GetUserArchiveMapper">
+    <select id="getUserArchiveByEmail" resultType="com.miaoyu.naigosbackend.model.UserArchiveModel">
+        SELECT * FROM users_users WHERE email = #{email}
+    </select>
+    <select id="getUserArchiveByUuid" resultType="com.miaoyu.naigosbackend.model.UserArchiveModel">
+        SELECT * FROM users_users WHERE group_real_user_id = #{uuid}
+    </select>
+    <select id="getUserArchiveByUniqueId" resultType="com.miaoyu.naigosbackend.model.UserArchiveModel">
+        SELECT * FROM users_users WHERE id = #{uniqueId}
+    </select>
+</mapper>
