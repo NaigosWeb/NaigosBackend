@@ -18,4 +18,8 @@ public class AppService {
         System.out.println("App Name: " + appConfig.getPasswordKey());
         return null;
     }
+
+    public String getPwdKey(){
+        return appConfig.getPasswordKey();
+    }
 }

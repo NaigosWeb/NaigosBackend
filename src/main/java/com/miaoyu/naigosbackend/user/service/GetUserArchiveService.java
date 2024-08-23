@@ -15,7 +15,6 @@ public class GetUserArchiveService {
     public UserArchiveModel getUserArchive(Integer uniqueId) {
         return getUserArchiveMapper.getUserArchiveByUniqueId(uniqueId);
     }
-
     // 使用String作为uid，这里假设email和uuid都通过String传递
     public UserArchiveModel getUserArchive(int loginType, String uid) {
         return switch (loginType) {

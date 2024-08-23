@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan({
-        "com.miaoyu.naigosbackend.bot.mapper",
+//        "com.miaoyu.naigosbackend.bot.mapper",
         "com.miaoyu.naigosbackend.user.mapper"
 })
 public class NaigosBackendApplication {

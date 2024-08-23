@@ -18,22 +18,21 @@ public class UserSignInAndUpController {
             @RequestParam("password") String password,
             @RequestParam("login_type") String loginType
     ) {
+        boolean isPassword = false;
         if (loginType.equals("normal") && !password.isEmpty() && !account.isEmpty()) {
-            int intUniqueId = 0;
-            String dbPwd;
+            int intUniqueId;
             try {
                 intUniqueId = Integer.parseInt(account);
+                isPassword = userSignInAndUpService.isUserInDatabase(intUniqueId, password);
             } catch (NumberFormatException e) {
                 if (account.contains("@")) {
-                    dbPwd = userSignInAndUpService.isUserInDatabase(1, account);
+                    isPassword = userSignInAndUpService.isUserInDatabase(1, account, password);
                 }
             }
-            dbPwd = userSignInAndUpService.isUserInDatabase(intUniqueId);
-            if (!dbPwd.equals(password)) {
-
-            }
-            return "";
         }
-        return "";
+        if (isPassword){
+            return "密码存在并正确！";
+        }
+        return "密码不存在或不正确！";
     }
 }

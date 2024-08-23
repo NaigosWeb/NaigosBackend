@@ -13,6 +13,6 @@
         ) THEN TRUE ELSE FALSE END
     </select>
     <select id="isUserPasswordInDatabase" resultType="com.miaoyu.naigosbackend.model.UserPasswordModel">
-        SELECT 1 FROM users_password WHERE uuid = #{uuid}
+        SELECT * FROM users_password WHERE uuid = #{uuid}
     </select>
 </mapper>
