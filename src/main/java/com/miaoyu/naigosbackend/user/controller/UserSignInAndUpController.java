@@ -18,21 +18,27 @@ public class UserSignInAndUpController {
             @RequestParam("password") String password,
             @RequestParam("login_type") String loginType
     ) {
-        boolean isPassword = false;
+        boolean isPasswordConsistent = false;
         if (loginType.equals("normal") && !password.isEmpty() && !account.isEmpty()) {
             int intUniqueId;
             try {
                 intUniqueId = Integer.parseInt(account);
-                isPassword = userSignInAndUpService.isUserInDatabase(intUniqueId, password);
+                isPasswordConsistent = userSignInAndUpService.isUserAndPwdInDatabase(intUniqueId, password);
             } catch (NumberFormatException e) {
-                if (account.contains("@")) {
-                    isPassword = userSignInAndUpService.isUserInDatabase(1, account, password);
-                }
+                isPasswordConsistent = userSignInAndUpService.isUserAndPwdInDatabase(1, account, password);
+            }
+            if (isPasswordConsistent){
+                return "密码存在并正确！";
+            }
+            return "密码不存在或不正确！";
+        } else if (loginType.equals("nopwd") && !account.isEmpty()) {
+            int intUniqueId;
+            try {
+                intUniqueId = Integer.parseInt(account);
+            } catch (NumberFormatException e) {
+
             }
         }
-        if (isPassword){
-            return "密码存在并正确！";
-        }
-        return "密码不存在或不正确！";
+        return "登录方式不正确！";
     }
 }

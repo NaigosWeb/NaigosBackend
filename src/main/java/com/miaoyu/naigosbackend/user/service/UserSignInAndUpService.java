@@ -3,7 +3,6 @@ package com.miaoyu.naigosbackend.user.service;
 import com.miaoyu.naigosbackend.model.UserArchiveModel;
 import com.miaoyu.naigosbackend.model.UserPasswordModel;
 import com.miaoyu.naigosbackend.service.AppService;
-import com.miaoyu.naigosbackend.service.JwtService;
 import com.miaoyu.naigosbackend.user.mapper.IsUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,33 +21,32 @@ public class UserSignInAndUpService {
     private AppService appService;
 
 
-    public boolean isUserInDatabase(Integer uniqueId, String webPwd){
+    public boolean isUserAndPwdInDatabase(Integer uniqueId, String webPwd){
         String uuid;
         UserArchiveModel userArchive = getUserArchiveService.getUserArchive(uniqueId);
         if (userArchive != null) {
             uuid = userArchive.getGroup_real_user_id();
-            return isUserPassword(uuid, webPwd);
+            return isUserPasswordConsistent(uuid, webPwd);
         } else {
             return false;
         }
     }
-    public boolean isUserInDatabase(int loginType, String uid, String webPwd){
+    public boolean isUserAndPwdInDatabase(int loginType, String uid, String webPwd){
         String uuid;
         UserArchiveModel userArchive = getUserArchiveService.getUserArchive(loginType, uid);
         if (userArchive != null) {
             uuid = userArchive.getGroup_real_user_id();
-            return isUserPassword(uuid, webPwd);
+            return isUserPasswordConsistent(uuid, webPwd);
         } else {
             return false;
         }
     }
 
-    private Boolean isUserPassword(String uuid, String webPwd){
+    private Boolean isUserPasswordConsistent(String uuid, String webPwd){
         String dbPwd;
         UserPasswordModel userPasswordInDatabase = isUserMapper.isUserPasswordInDatabase(uuid);
         dbPwd = userPasswordInDatabase.getPassword();
         String hashPwd = passwordHash(webPwd);
-
         System.out.println("ServerSavePwd:" + dbPwd + "\nHashPwd:" + hashPwd);
         return dbPwd != null && dbPwd.equals(hashPwd);
     }
