@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaoyu.naigosbackend.api.mapper.GetSgClassifyMapper">
+    <select id="getAllBriefSgClassify" resultType="com.miaoyu.naigosbackend.api.entity.SgClassifyBriefEntity">
+        SELECT * FROM api_sogouinputtheme_classify
+    </select>
+    <select id="getSogouInputThemeClassify" resultType="com.miaoyu.naigosbackend.model.SogouInputThemeClassifyModel">
+        SELECT * FROM api_sogouinputtheme_classify WHERE classify_id = #{classifyId}
+    </select>
+</mapper>

@@ -28,7 +28,7 @@ public class UserArchiveController {
             return new NoLoginMap().noLoginMap();
         }
         System.out.println(token);
-        Map<String, Object> payload = jwtParser.jwtParser(token);
+        Map<String, Object> payload = jwtParser.jwtParser(token, "web");
         System.out.println(payload);
         if ((int) payload.get("code") == 1) {
             return payload;

@@ -1,5 +1,9 @@
 package com.miaoyu.naigosbackend.user.controller;
 
+import com.miaoyu.naigosbackend.constantsMap.ErrorMap;
+import com.miaoyu.naigosbackend.constantsMap.NormalMap;
+import com.miaoyu.naigosbackend.model.UserArchiveModel;
+import com.miaoyu.naigosbackend.user.service.GetUserArchiveService;
 import com.miaoyu.naigosbackend.user.service.UserSignInAndUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,38 +11,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/users/sign")
 public class UserSignInAndUpController {
     @Autowired
     private UserSignInAndUpService userSignInAndUpService;
+    @Autowired
+    private GetUserArchiveService getUserArchiveService;
     @PostMapping("/in")
-    public String userSignIn(
+    public Map<String, Object> userSignIn(
             @RequestParam("account") String account,
             @RequestParam("password") String password,
             @RequestParam("login_type") String loginType
     ) {
-        boolean isPasswordConsistent = false;
-        if (loginType.equals("normal") && !password.isEmpty() && !account.isEmpty()) {
-            int intUniqueId;
-            try {
-                intUniqueId = Integer.parseInt(account);
-                isPasswordConsistent = userSignInAndUpService.isUserAndPwdInDatabase(intUniqueId, password);
-            } catch (NumberFormatException e) {
-                isPasswordConsistent = userSignInAndUpService.isUserAndPwdInDatabase(1, account, password);
+        String accountType = "unknown";
+        if (account.matches("\\d+")) {
+            accountType = "id";
+        } else if (account.matches(".*@.*")) {
+            accountType = "email";
+        }
+        if (loginType.equals("normal")){
+            Map<String, Object> userAndPwdInDatabase = userSignInAndUpService.isUserAndPwdInDatabase(accountType, account, password);
+            if (userAndPwdInDatabase != null) {
+                return userAndPwdInDatabase;
+            } else {
+                return new ErrorMap().errorMap("ID或密码不正确！");
             }
-            if (isPasswordConsistent){
-                return "密码存在并正确！";
-            }
-            return "密码不存在或不正确！";
-        } else if (loginType.equals("nopwd") && !account.isEmpty()) {
-            int intUniqueId;
-            try {
-                intUniqueId = Integer.parseInt(account);
-            } catch (NumberFormatException e) {
-
+        } else if (loginType.equals("nopwd")) {
+            String archiveAndCode = userSignInAndUpService.findArchiveAndCode(accountType, account);
+            if (archiveAndCode != null) {
+                return new NormalMap().normalSuccessMap(archiveAndCode);
+            } else {
+                return new ErrorMap().errorMap("ID可能有问题！");
             }
         }
-        return "登录方式不正确！";
+        return new ErrorMap().errorMap("登录方式不正确！");
+    }
+
+    @PostMapping("/nopwdcl")
+    public Map<String, Object> nopwdSignInCheckLogin(
+            @RequestParam("account") String account,
+            @RequestParam("code") String code
+    ){
+        UserArchiveModel userArchive = null;
+        if (account.matches("\\d+")) {
+            userArchive = getUserArchiveService.getUserArchive(Integer.valueOf(account));
+        } else if (account.matches(".*@.*")) {
+            userArchive = getUserArchiveService.getUserArchive(1, account);
+        }
+        if (userArchive != null) {
+            return userSignInAndUpService.nopwdSignin(userArchive, code);
+        }
+        return new ErrorMap().errorMap("找不到档案");
     }
 }

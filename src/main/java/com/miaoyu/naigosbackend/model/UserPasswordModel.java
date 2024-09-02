@@ -5,7 +5,7 @@ public class UserPasswordModel {
     private String password;
     private String code;
     private boolean is_code;
-    private Integer expiration_date;
+    private long expiration_date;
 
     public String getUuid() {
         return uuid;
@@ -39,11 +39,11 @@ public class UserPasswordModel {
         this.is_code = is_code;
     }
 
-    public Integer getExpiration_date() {
+    public long getExpiration_date() {
         return expiration_date;
     }
 
-    public void setExpiration_date(Integer expiration_date) {
+    public void setExpiration_date(long expiration_date) {
         this.expiration_date = expiration_date;
     }
 }

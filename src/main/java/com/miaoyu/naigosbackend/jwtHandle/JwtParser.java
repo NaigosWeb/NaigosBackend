@@ -18,8 +18,8 @@ public class JwtParser {
     @Autowired
     private JwtService jwtService;
 
-    public Map<String, Object> jwtParser(String token) {
-        Claims payload = null;
+    public Map<String, Object> jwtParser(String token, String source) {
+        Claims payload;
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtService.getKey()));
         try{
             payload = Jwts.parser()
@@ -43,6 +43,12 @@ public class JwtParser {
             System.out.println("JwtException" + e.getMessage());
             return new ErrorMap().errorMap("令牌无效！");
         }
-        return new NormalMap().normalSuccessMap(payload.get("uuid"));
+        if (payload.get("source").equals(source)){
+            return new NormalMap().normalSuccessMap(payload.get("uuid"));
+        } else if (payload.get("source").equals(source)) {
+            return new NormalMap().normalSuccessMap(payload.get("appid"));
+        } else {
+            return new ErrorMap().errorMap("令牌无效！");
+        }
     }
 }
