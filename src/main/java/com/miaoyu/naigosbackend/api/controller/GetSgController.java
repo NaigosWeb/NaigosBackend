@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/sgtheme")
@@ -19,22 +20,21 @@ public class GetSgController {
     private GetSgService getSgService;
 
     @GetMapping("/all")
-    public List<SogouInputThemeModel> getAllSgTheme(HttpServletRequest request) {
-        System.out.println(IpUtils.getIpAddress(request));
+    public Map<String, Object> getAllSgTheme(HttpServletRequest request) {
         return getSgService.findAllSg();
     }
     @GetMapping("/brief/all")
-    public List<SgBriefEntity> getAllBriefSgTheme() {
+    public Map<String, Object> getAllBriefSgTheme() {
         return getSgService.findAllBriefSg();
     }
     @GetMapping("/brief/appoint")
-    public List<SgBriefEntity> getAllAppointBriefSgTheme(
+    public Map<String, Object> getAllAppointBriefSgTheme(
             @RequestParam(value = "classify_id") String classifyId
     ) {
         return getSgService.findAllBriefSgByAppoint(classifyId);
     }
     @GetMapping("/only")
-    public SogouInputThemeModel getOnlySgTheme(
+    public Map<String, Object> getOnlySgTheme(
             @RequestParam(value = "theme_id") String themeId
             ) {
         return getSgService.findSgById(themeId);

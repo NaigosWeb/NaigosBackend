@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/api/sgtheme/classify")
 @RestController
@@ -18,11 +19,11 @@ public class GetSgClassifyController {
     private GetSgClassifyService getSgClassifyService;
 
     @GetMapping("/brief")
-    public List<SgClassifyBriefEntity> getAllBriefSgClassify() {
+    public Map<String, Object> getAllBriefSgClassify() {
         return getSgClassifyService.findAllBriefSgClassify();
     }
     @GetMapping("/only")
-    public SogouInputThemeClassifyModel getOnlySgClassify(
+    public Map<String, Object> getOnlySgClassify(
             @RequestParam(value = "classify_id") String classifyId
     ) {
         return getSgClassifyService.findSgClassifyById(classifyId);
