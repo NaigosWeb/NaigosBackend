@@ -1,8 +1,6 @@
 package com.miaoyu.naigosbackend.api.controller;
 
-import com.miaoyu.naigosbackend.api.entity.SgBriefEntity;
 import com.miaoyu.naigosbackend.api.service.GetSgService;
-import com.miaoyu.naigosbackend.model.SogouInputThemeModel;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

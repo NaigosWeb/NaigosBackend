@@ -1,0 +1,7 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaoyu.naigosbackend.bot.mapper.GetBotMapper">
+    <select id="getBot" resultType="com.miaoyu.naigosbackend.model.BotArchiveModel">
+        SELECT * FROM bots_bots WHERE bot_appid = #{botAppid}
+    </select>
+</mapper>

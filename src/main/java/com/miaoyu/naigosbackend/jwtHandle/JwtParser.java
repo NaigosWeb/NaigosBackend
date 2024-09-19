@@ -43,9 +43,9 @@ public class JwtParser {
             System.out.println("JwtException" + e.getMessage());
             return new ErrorMap().errorMap("令牌无效！");
         }
-        if (payload.get("source").equals(source)){
+        if (source.equals("web") && payload.get("source").equals(source)){
             return new NormalMap().normalSuccessMap(payload.get("uuid"));
-        } else if (payload.get("source").equals(source)) {
+        } else if (source.equals("bot") && payload.get("source").equals(source)) {
             return new NormalMap().normalSuccessMap(payload.get("appid"));
         } else {
             return new ErrorMap().errorMap("令牌无效！");

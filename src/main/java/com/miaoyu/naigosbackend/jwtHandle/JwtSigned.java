@@ -20,17 +20,21 @@ public class JwtSigned {
 
     public String jwtSigned(String tokenRule, String target){
         String issuer = null;
+        String targetIdName = "";
         if (tokenRule.equals("web")){
             issuer = "com.miaoyu.naigos.network.service";
+            targetIdName = "uuid";
         } else if (tokenRule.equals("bot")) {
             issuer = "com.miaoyu.naigos.bot.service";
+            targetIdName = "appid";
         }
         String jwtServiceKey = jwtService.getKey();
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtServiceKey));
         Map<String, Object> claims = new HashMap<>();
-        claims.put("uuid", target);
+
+        claims.put(targetIdName, target);
         claims.put("source", tokenRule);
-        String jws = Jwts.builder()
+        return Jwts.builder()
                 .signWith(key, Jwts.SIG.HS256)
                 .issuer(issuer)
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
@@ -38,6 +42,5 @@ public class JwtSigned {
                 .issuedAt(new Date())
                 .claims(claims)
                 .compact();
-        return jws;
     }
 }

@@ -1,15 +1,12 @@
 package com.miaoyu.naigosbackend.api.controller;
 
-import com.miaoyu.naigosbackend.api.entity.SgClassifyBriefEntity;
 import com.miaoyu.naigosbackend.api.service.GetSgClassifyService;
-import com.miaoyu.naigosbackend.model.SogouInputThemeClassifyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/api/sgtheme/classify")
