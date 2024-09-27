@@ -17,20 +17,24 @@ public class GetSgController {
     @Autowired
     private GetSgService getSgService;
 
+    /// 获取所有搜狗输入法皮肤全部信息
     @GetMapping("/all")
     public Map<String, Object> getAllSgTheme(HttpServletRequest request) {
         return getSgService.findAllSg();
     }
+    /// 获取所有搜狗输入法皮肤简略信息
     @GetMapping("/brief/all")
     public Map<String, Object> getAllBriefSgTheme() {
         return getSgService.findAllBriefSg();
     }
+    /// 根据分类ID获取所有对应搜狗输入法的简略信息
     @GetMapping("/brief/appoint")
     public Map<String, Object> getAllAppointBriefSgTheme(
             @RequestParam(value = "classify_id") String classifyId
     ) {
         return getSgService.findAllBriefSgByAppoint(classifyId);
     }
+    /// 根据搜狗输入法皮肤ID专一获得该皮肤详情信息
     @GetMapping("/only")
     public Map<String, Object> getOnlySgTheme(
             @RequestParam(value = "theme_id") String themeId

@@ -1,3 +1,5 @@
+/*
+* 用户的个人信息档案模型*/
 package com.miaoyu.naigosbackend.model;
 
 public class UserArchiveModel {

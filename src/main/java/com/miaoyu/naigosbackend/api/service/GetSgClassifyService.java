@@ -16,6 +16,7 @@ public class GetSgClassifyService {
     @Autowired
     private GetSgClassifyMapper getSgClassifyMapper;
 
+    /// 服务层 获取所有搜狗输入法皮肤分类的简略信息
     public Map<String, Object> findAllBriefSgClassify() {
         List<SgClassifyBriefEntity> allBriefSgClassify = getSgClassifyMapper.getAllBriefSgClassify();
         if (allBriefSgClassify != null && !allBriefSgClassify.isEmpty()) {
@@ -23,6 +24,7 @@ public class GetSgClassifyService {
         }
         return new ErrorMap().errorMap("获取失败");
     }
+    /// 服务层 根据分类ID专一获取该分类的详情信息
     public Map<String, Object> findSgClassifyById(String classifyId) {
         SogouInputThemeClassifyModel sogouInputThemeClassify = getSgClassifyMapper.getSogouInputThemeClassify(classifyId);
         if (sogouInputThemeClassify != null) {

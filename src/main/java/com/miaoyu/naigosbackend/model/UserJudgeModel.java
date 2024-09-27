@@ -1,3 +1,5 @@
+/*
+* 用户的信息档案状态判断模型*/
 package com.miaoyu.naigosbackend.model;
 
 public class UserJudgeModel {

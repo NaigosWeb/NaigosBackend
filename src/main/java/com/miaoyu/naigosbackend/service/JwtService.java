@@ -1,3 +1,5 @@
+/*
+* 获取application中的JWT配置信息*/
 package com.miaoyu.naigosbackend.service;
 
 import com.miaoyu.naigosbackend.JwtConfig;

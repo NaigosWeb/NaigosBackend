@@ -20,19 +20,29 @@ public class UserSignInAndUpController {
     private UserSignInAndUpService userSignInAndUpService;
     @Autowired
     private GetUserArchiveService getUserArchiveService;
+
+    /**
+    * 登录的控制器层
+    * param
+    *   account账号
+    *   password密码
+    *   login_type登录方式*/
     @PostMapping("/in")
     public Map<String, Object> userSignIn(
             @RequestParam("account") String account,
             @RequestParam("password") String password,
             @RequestParam("login_type") String loginType
     ) {
+        // 正则处理登录账号的规则
         String accountType = "unknown";
         if (account.matches("\\d+")) {
             accountType = "id";
         } else if (account.matches(".*@.*")) {
             accountType = "email";
         }
+        // 处理账号登录的方式
         if (loginType.equals("normal")){
+            // 确认账号存在数据库并密码正确
             Map<String, Object> userAndPwdInDatabase = userSignInAndUpService.isUserAndPwdInDatabase(accountType, account, password);
             if (userAndPwdInDatabase != null) {
                 return userAndPwdInDatabase;
@@ -50,6 +60,11 @@ public class UserSignInAndUpController {
         return new ErrorMap().errorMap("登录方式不正确！");
     }
 
+    /**
+    * 确认无密码登录（当用户已经获取的验证码后确认点击了登录）
+    * param
+    *   account账号
+    *   code验证码*/
     @PostMapping("/nopwdcl")
     public Map<String, Object> nopwdSignInCheckLogin(
             @RequestParam("account") String account,

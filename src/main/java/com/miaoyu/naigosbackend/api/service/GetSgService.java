@@ -16,6 +16,7 @@ public class GetSgService {
     @Autowired
     private GetSgMapper getSgMapper;
 
+    /// 服务层 获取所有搜狗输入法皮肤的详情信息
     public Map<String, Object> findAllSg(){
         List<SogouInputThemeModel> all = getSgMapper.getAll();
         if (all != null && !all.isEmpty()){
@@ -23,6 +24,7 @@ public class GetSgService {
         }
         return new ErrorMap().errorMap("获取失败");
     }
+    /// 服务层 获取所有搜狗输入法皮肤的简略信息
     public Map<String, Object> findAllBriefSg(){
         List<SgBriefEntity> allBrief = getSgMapper.getAllBrief();
         if (allBrief != null && !allBrief.isEmpty()){
@@ -30,6 +32,7 @@ public class GetSgService {
         }
         return new ErrorMap().errorMap("获取失败");
     }
+    /// 服务层 根据搜狗输入法皮肤ID专一获取该皮肤详情信息
     public Map<String, Object> findSgById(String themeId){
         SogouInputThemeModel sgById = getSgMapper.getSgById(themeId);
         if (sgById != null){
@@ -37,6 +40,7 @@ public class GetSgService {
         }
         return new ErrorMap().errorMap("获取失败");
     }
+    /// 服务层 根据分类ID获取符合条件的搜狗输入法皮肤的简略信息
     public Map<String, Object> findAllBriefSgByAppoint(String classify){
         List<SgBriefEntity> allBriefByAppoint = getSgMapper.getAllBriefByAppoint(classify);
         if (allBriefByAppoint != null && !allBriefByAppoint.isEmpty()){

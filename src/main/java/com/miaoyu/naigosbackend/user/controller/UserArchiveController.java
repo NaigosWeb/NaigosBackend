@@ -22,6 +22,10 @@ public class UserArchiveController {
     @Autowired
     private JwtParser jwtParser;
 
+    /**
+     * 获取用户的详情信息
+     * param
+     *  token: String 有效的令牌*/
     @GetMapping("/current")
     public Map<String, Object> getCurrentUser(@RequestHeader("Authorization") String token) {
         if (token == null) {

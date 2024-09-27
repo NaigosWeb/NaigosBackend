@@ -15,10 +15,12 @@ public class GetSgClassifyController {
     @Autowired
     private GetSgClassifyService getSgClassifyService;
 
+    /// 获取所有搜狗输入法分类的简略信息
     @GetMapping("/brief")
     public Map<String, Object> getAllBriefSgClassify() {
         return getSgClassifyService.findAllBriefSgClassify();
     }
+    /// 根据分类ID专一获取该分类的详情信息
     @GetMapping("/only")
     public Map<String, Object> getOnlySgClassify(
             @RequestParam(value = "classify_id") String classifyId

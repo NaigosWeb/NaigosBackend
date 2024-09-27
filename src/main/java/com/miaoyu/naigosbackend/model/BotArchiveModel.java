@@ -1,3 +1,5 @@
+/*
+* 机器人的档案信息模型*/
 package com.miaoyu.naigosbackend.model;
 
 public class BotArchiveModel {

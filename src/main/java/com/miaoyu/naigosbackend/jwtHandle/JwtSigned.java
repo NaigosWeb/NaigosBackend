@@ -1,3 +1,8 @@
+/*
+* 签发JWT的类
+* param
+*   tokenRule来源（token的签发源）
+*   target签发接收方的账号*/
 package com.miaoyu.naigosbackend.jwtHandle;
 
 import com.miaoyu.naigosbackend.service.JwtService;

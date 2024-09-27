@@ -1,6 +1,5 @@
 package com.miaoyu.naigosbackend.user.service;
 
-import com.miaoyu.naigosbackend.AppConfig;
 import com.miaoyu.naigosbackend.model.UserArchiveModel;
 import com.miaoyu.naigosbackend.user.mapper.GetUserArchiveMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,18 @@ public class GetUserArchiveService {
     @Autowired
     private GetUserArchiveMapper getUserArchiveMapper;
 
-    // 使用Integer作为uid
+    /**
+     * 根据UID获取用户信息
+     * param
+     *  uniqueId: Integer 唯一UID*/
     public UserArchiveModel getUserArchive(Integer uniqueId) {
         return getUserArchiveMapper.getUserArchiveByUniqueId(uniqueId);
     }
-    // 使用String作为uid，这里假设email和uuid都通过String传递
+    /**
+     * 根据账号规则获取用户信息
+     * param
+     *  loginType: int 账号规则 1:email 2:uuid
+     *  uid: String 账号*/
     public UserArchiveModel getUserArchive(int loginType, String uid) {
         return switch (loginType) {
             case 1 -> getUserArchiveMapper.getUserArchiveByEmail(uid);

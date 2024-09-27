@@ -1,3 +1,5 @@
+/*
+* 用户的密码模型*/
 package com.miaoyu.naigosbackend.model;
 
 public class UserPasswordModel {

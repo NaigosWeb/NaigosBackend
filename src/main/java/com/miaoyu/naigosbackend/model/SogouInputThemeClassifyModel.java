@@ -1,3 +1,5 @@
+/*
+* 搜狗输入法皮肤的分类模型*/
 package com.miaoyu.naigosbackend.model;
 
 public class SogouInputThemeClassifyModel {

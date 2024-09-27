@@ -1,3 +1,8 @@
+/*
+* 解码JWT的类
+* param
+*   token密钥
+*   source来源（token的签发源）*/
 package com.miaoyu.naigosbackend.jwtHandle;
 
 import com.miaoyu.naigosbackend.constantsMap.ErrorMap;
