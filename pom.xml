@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.miaoyu</groupId>
-    <artifactId>NaigosBackend</artifactId>
+    <artifactId>Naigos</artifactId>
     <version>0.0.1</version>
-    <name>NaigosBackend</name>
-    <description>NaigosBackend</description>
+    <name>Naigos</name>
+    <description>Naigos</description>
     <url/>
     <licenses>
         <license/>

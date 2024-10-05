@@ -1,16 +1,16 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.miaoyu.naigosbackend.api.mapper.GetSgMapper">
-    <select id="getAll" resultType="com.miaoyu.naigosbackend.model.SogouInputThemeModel">
+<mapper namespace="com.miaoyu.naigos.api.SgTheme.mapper.GetSgMapper">
+    <select id="getAll" resultType="com.miaoyu.naigos.model.SogouInputThemeModel">
         SELECT * FROM api_sogouinputtheme
     </select>
-    <select id="getAllBrief" resultType="com.miaoyu.naigosbackend.api.entity.SgBriefEntity">
+    <select id="getAllBrief" resultType="com.miaoyu.naigos.api.SgTheme.entity.SgBriefEntity">
         SELECT name, header_image, theme_id FROM api_sogouinputtheme
     </select>
-    <select id="getSgById" resultType="com.miaoyu.naigosbackend.model.SogouInputThemeModel">
+    <select id="getSgById" resultType="com.miaoyu.naigos.model.SogouInputThemeModel">
         SELECT * FROM api_sogouinputtheme WHERE theme_id = #{themeId}
     </select>
-    <select id="getAllBriefByAppoint" resultType="com.miaoyu.naigosbackend.api.entity.SgBriefEntity">
+    <select id="getAllBriefByAppoint" resultType="com.miaoyu.naigos.api.SgTheme.entity.SgBriefEntity">
         SELECT * FROM api_sogouinputtheme WHERE classify = #{classifyId}
     </select>
 </mapper>
