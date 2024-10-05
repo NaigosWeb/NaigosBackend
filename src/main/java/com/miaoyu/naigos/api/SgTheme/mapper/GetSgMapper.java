@@ -10,4 +10,5 @@ public interface GetSgMapper {
     List<SgBriefEntity> getAllBrief();
     List<SgBriefEntity> getAllBriefByAppoint(String classifyId);
     SogouInputThemeModel getSgById(String themeId);
+    boolean saveDetails()
 }

@@ -16,6 +16,10 @@ public class GetSgService {
     @Autowired
     private GetSgMapper getSgMapper;
 
+    public Map<String, Object> saveDetails(List<String> list){
+
+    }
+
     /// 服务层 获取所有搜狗输入法皮肤的详情信息
     public Map<String, Object> findAllSg(){
         List<SogouInputThemeModel> all = getSgMapper.getAll();

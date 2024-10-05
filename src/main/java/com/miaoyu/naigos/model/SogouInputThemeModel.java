@@ -1,6 +1,10 @@
 /*
 * 搜狗输入法的皮肤模型*/
 package com.miaoyu.naigos.model;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.IOException;
+import java.util.List;
 
 public class SogouInputThemeModel {
     private String name;
@@ -11,6 +15,18 @@ public class SogouInputThemeModel {
     private int cost;
     private String eject_image;
     private String theme_id;
+
+    public void setDetails_image(List<String> list) throws IOException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        this.details_image = objectMapper.writeValueAsString(list);
+    }
+
+    public List<String> getDetails_image() throws IOException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(this.details_image,
+                objectMapper.getTypeFactory().constructCollectionType(List.class, String.class)
+        );
+    }
 
     public String getName() {
         return name;
@@ -44,13 +60,13 @@ public class SogouInputThemeModel {
         this.header_image = header_image;
     }
 
-    public String getDetails_image() {
-        return details_image;
-    }
+//    public String getDetails_image() {
+//        return details_image;
+//    }
 
-    public void setDetails_image(String details_image) {
-        this.details_image = details_image;
-    }
+//    public void setDetails_image(String details_image) {
+//        this.details_image = details_image;
+//    }
 
     public int getCost() {
         return cost;

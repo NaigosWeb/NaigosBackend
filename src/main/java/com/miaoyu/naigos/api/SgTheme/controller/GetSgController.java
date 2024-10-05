@@ -72,6 +72,16 @@ public class GetSgController {
     ) {
         return getSgClassifyService.findSgClassifyById(classifyId);
     }
+
+    /**
+     * 测试Jackson搭配Mybatis上传JSON Array类型
+     *
+     * */
+    @GetMapping("/test")
+    public Map<String, Object> toSaveDetails(){
+        
+        return getSgService.saveDetails(["https://naigos.cn/images/Sgtheme/midori_meido_1/横合.png"; "https://naigos.cn/images/Sgtheme/midori_meido_1/横合.png"]);
+    }
 }
 
 class IpUtils {
