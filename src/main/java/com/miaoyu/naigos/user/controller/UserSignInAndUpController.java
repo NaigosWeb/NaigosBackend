@@ -23,10 +23,11 @@ public class UserSignInAndUpController {
 
     /**
     * 登录的控制器层
-    * @param
-    *   account账号
-    *   password密码
-    *   login_type登录方式*/
+    * @param account 账号
+    * @param password 密码
+    * @param loginType 登录方式
+    * @return Map->JSON
+    * */
     @PostMapping("/in")
     public Map<String, Object> userSignIn(
             @RequestParam("account") String account,
@@ -62,9 +63,10 @@ public class UserSignInAndUpController {
 
     /**
     * 确认无密码登录（当用户已经获取的验证码后确认点击了登录）
-    * param
-    *   account账号
-    *   code验证码*/
+    * @param account 账号
+    * @param code 验证码
+    * @return Map->JSON
+    * */
     @PostMapping("/nopwdcl")
     public Map<String, Object> nopwdSignInCheckLogin(
             @RequestParam("account") String account,

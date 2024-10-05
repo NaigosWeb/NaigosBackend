@@ -23,8 +23,9 @@ public class UserArchiveController {
 
     /**
      * 获取用户的详情信息
-     * param
-     *  token: String 有效的令牌*/
+     * @param token 有效的令牌
+     * @return Map->Json
+     * */
     @GetMapping("/current")
     public Map<String, Object> getCurrentUser(@RequestHeader("Authorization") String token) {
         if (token == null) {
