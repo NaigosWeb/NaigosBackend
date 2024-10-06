@@ -17,7 +17,7 @@ public class GetSgService {
     private GetSgMapper getSgMapper;
 
     public Map<String, Object> saveDetails(List<String> list){
-
+        return new NormalMap().normalSuccessMap("");
     }
 
     /// 服务层 获取所有搜狗输入法皮肤的详情信息

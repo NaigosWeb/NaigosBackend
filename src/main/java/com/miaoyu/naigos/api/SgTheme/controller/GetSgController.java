@@ -2,6 +2,7 @@ package com.miaoyu.naigos.api.SgTheme.controller;
 
 import com.miaoyu.naigos.api.SgTheme.service.GetSgClassifyService;
 import com.miaoyu.naigos.api.SgTheme.service.GetSgService;
+import com.miaoyu.naigos.constantsMap.ErrorMap;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,8 +80,7 @@ public class GetSgController {
      * */
     @GetMapping("/test")
     public Map<String, Object> toSaveDetails(){
-
-        return getSgService.saveDetails(["https://naigos.cn/images/Sgtheme/midori_meido_1/横合.png"; "https://naigos.cn/images/Sgtheme/midori_meido_1/横合.png"]);
+        return new ErrorMap().errorMap("");
     }
 }
 

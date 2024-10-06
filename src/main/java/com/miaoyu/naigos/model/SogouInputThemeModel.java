@@ -16,16 +16,12 @@ public class SogouInputThemeModel {
     private String eject_image;
     private String theme_id;
 
-    public void setDetails_image(List<String> list) throws IOException{
-        ObjectMapper objectMapper = new ObjectMapper();
-        this.details_image = objectMapper.writeValueAsString(list);
+    public String getDetails_image() {
+        return details_image;
     }
 
-    public List<String> getDetails_image() throws IOException{
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(this.details_image,
-                objectMapper.getTypeFactory().constructCollectionType(List.class, String.class)
-        );
+    public void setDetails_image(String details_image) {
+        this.details_image = details_image;
     }
 
     public String getName() {
