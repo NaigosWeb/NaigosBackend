@@ -79,7 +79,7 @@ public class GetSgController {
      * */
     @GetMapping("/test")
     public Map<String, Object> toSaveDetails(){
-        
+
         return getSgService.saveDetails(["https://naigos.cn/images/Sgtheme/midori_meido_1/横合.png"; "https://naigos.cn/images/Sgtheme/midori_meido_1/横合.png"]);
     }
 }
