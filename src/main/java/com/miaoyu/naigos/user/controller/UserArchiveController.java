@@ -31,9 +31,7 @@ public class UserArchiveController {
         if (token == null) {
             return new NoLoginMap().noLoginMap();
         }
-        System.out.println(token);
         Map<String, Object> payload = jwtParser.jwtParser(token, "web");
-        System.out.println(payload);
         if ((int) payload.get("code") == 1) {
             return payload;
         }
@@ -43,7 +41,10 @@ public class UserArchiveController {
     }
 
     /**
-     * 获取用户的头像地址*/
+     * 获取用户的头像地址
+     * @param token 有效的令牌
+     * @return Map->JSON
+     * */
     @GetMapping("/me_avatar")
     public Map<String, Object> getMeAvatar(@RequestHeader("Authorization") String token) {
         if (token == null) {
