@@ -41,4 +41,19 @@ public class UserArchiveController {
                 getUserArchiveService.getUserArchive(2, (String) payload.get("data"))
         );
     }
+
+    /**
+     * 获取用户的头像地址*/
+    @GetMapping("/me_avatar")
+    public Map<String, Object> getMeAvatar(@RequestHeader("Authorization") String token) {
+        if (token == null) {
+            return new NoLoginMap().noLoginMap();
+        }
+        Map<String, Object> payload = jwtParser.jwtParser(token, "web");
+        if ((int) payload.get("code") == 1){
+            return payload;
+        }
+        String uuid = (String) payload.get("data");
+        return getUserArchiveService.getMeAvatarService(uuid);
+    }
 }

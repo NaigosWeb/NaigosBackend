@@ -1,9 +1,13 @@
 package com.miaoyu.naigos.user.service;
 
+import com.miaoyu.naigos.constantsMap.ErrorMap;
+import com.miaoyu.naigos.constantsMap.NormalMap;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class GetUserArchiveService {
@@ -28,6 +32,20 @@ public class GetUserArchiveService {
             case 2 -> getUserArchiveMapper.getUserArchiveByUuid(uid);
             default -> null;
         };
+    }
+
+    /**
+     * 获取用户的头像
+     * @param uuid 用户的唯一识别符
+     * @return Map->JSON
+     * */
+    public Map<String, Object> getMeAvatarService(String uuid){
+        UserArchiveModel userArchiveByUuid = getUserArchiveMapper.getUserArchiveByUuid(uuid);
+        if (userArchiveByUuid == null) {
+            return new ErrorMap().errorMap("未找到用户！");
+        }
+        String avatarUrl = userArchiveByUuid.getAvatar();
+        return new NormalMap().normalSuccessMap(avatarUrl);
     }
 
 }
