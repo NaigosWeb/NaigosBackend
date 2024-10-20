@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/users/sign")
@@ -26,61 +27,37 @@ public class UserSignInAndUpController {
     * @param account 账号
     * @param password 密码
     * @param loginType 登录方式
+    * @param accountType 账号类型
     * @return Map->JSON
     * */
     @PostMapping("/in")
     public Map<String, Object> userSignIn(
             @RequestParam("account") String account,
             @RequestParam("password") String password,
-            @RequestParam("login_type") String loginType
+            @RequestParam("login_type") String loginType,
+            @RequestParam("account_type") String accountType
     ) {
-        // 正则处理登录账号的规则
-        String accountType = "unknown";
-        if (account.matches("\\d+")) {
-            accountType = "id";
-        } else if (account.matches(".*@.*")) {
-            accountType = "email";
+        if (Objects.equals(loginType, "normal")){
+            return userSignInAndUpService.isUserAndPwdInDatabase(accountType, account, password);
+        } else if (Objects.equals(loginType, "nopwd")){
+            return userSignInAndUpService.findArchiveAndCode(accountType, account);
         }
-        // 处理账号登录的方式
-        if (loginType.equals("normal")){
-            // 确认账号存在数据库并密码正确
-            Map<String, Object> userAndPwdInDatabase = userSignInAndUpService.isUserAndPwdInDatabase(accountType, account, password);
-            if (userAndPwdInDatabase != null) {
-                return userAndPwdInDatabase;
-            } else {
-                return new ErrorMap().errorMap("ID或密码不正确！");
-            }
-        } else if (loginType.equals("nopwd")) {
-            String archiveAndCode = userSignInAndUpService.findArchiveAndCode(accountType, account);
-            if (archiveAndCode != null) {
-                return new NormalMap().normalSuccessMap(archiveAndCode);
-            } else {
-                return new ErrorMap().errorMap("ID可能有问题！");
-            }
-        }
-        return new ErrorMap().errorMap("登录方式不正确！");
+        return new ErrorMap().errorMap("未知的登录方式");
     }
 
     /**
     * 确认无密码登录（当用户已经获取的验证码后确认点击了登录）
     * @param account 账号
     * @param code 验证码
+     * @param accountType 账号类型
     * @return Map->JSON
     * */
     @PostMapping("/nopwdcl")
     public Map<String, Object> nopwdSignInCheckLogin(
             @RequestParam("account") String account,
-            @RequestParam("code") String code
+            @RequestParam("code") String code,
+            @RequestParam("account_type") String accountType
     ){
-        UserArchiveModel userArchive = null;
-        if (account.matches("\\d+")) {
-            userArchive = getUserArchiveService.getUserArchive(Integer.valueOf(account));
-        } else if (account.matches(".*@.*")) {
-            userArchive = getUserArchiveService.getUserArchive(1, account);
-        }
-        if (userArchive != null) {
-            return userSignInAndUpService.nopwdSignin(userArchive, code);
-        }
-        return new ErrorMap().errorMap("找不到档案");
+        return userSignInAndUpService.nopwdSignin(accountType, account, code);
     }
 }

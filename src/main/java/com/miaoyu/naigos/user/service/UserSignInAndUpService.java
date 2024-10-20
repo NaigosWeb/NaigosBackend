@@ -37,32 +37,23 @@ public class UserSignInAndUpService {
     *   account: String 账号
     *   webPwd: String 网页中用户传来的密码*/
     public Map<String, Object> isUserAndPwdInDatabase(String accountType, String account, String webPwd){
-        UserArchiveModel userArchive = null;
-        // 选择账号的模式，并获取账号详情信息
-        switch (accountType){
-            case "id": {
-                userArchive = getUserArchiveService.getUserArchive(Integer.parseInt(account));
-                break;
-            } case "email": {
-                userArchive = getUserArchiveService.getUserArchive(1, account);
-                break;
-            } default: return null;
-        }
+        UserArchiveModel userArchive = getUserArchive(accountType, account);
         if (userArchive != null) {
             if (userArchive.getSafe_level() < 0){
-                return null;
+                return new ErrorMap().errorMap("账号已被冻结！");
             }
             // 有账号并且没有被封禁
             String uuid = userArchive.getGroup_real_user_id();
             // 判断账号的密码是否正确
             Boolean isUserPasswordConsistent = isUserPasswordConsistent(uuid, webPwd);
+            System.out.println(isUserPasswordConsistent);
             if (isUserPasswordConsistent) {
                 return new NormalMap().normalSuccessMap(jwtSigned.jwtSigned("web", uuid));
+            } else {
+                return new ErrorMap().errorMap("密码错误！");
             }
-            return null;
-        } else {
-            return null;
         }
+        return new ErrorMap().errorMap("未找到档案！");
     }
 
     /**
@@ -70,17 +61,8 @@ public class UserSignInAndUpService {
     * param
     *   accountType: String 账号规则
     *   account: String 账号*/
-    public String findArchiveAndCode(String accountType, String account){
-        UserArchiveModel userArchive = null;
-        switch (accountType){
-            case "id": {
-                userArchive = getUserArchiveService.getUserArchive(Integer.parseInt(account));
-                break;
-            } case "email": {
-                userArchive = getUserArchiveService.getUserArchive(1, account);
-                break;
-            } default: return null;
-        }
+    public Map<String, Object> findArchiveAndCode(String accountType, String account){
+        UserArchiveModel userArchive = getUserArchive(accountType, account);
         // 当账号存在
         if (userArchive != null){
             String uuid = userArchive.getGroup_real_user_id();
@@ -91,7 +73,7 @@ public class UserSignInAndUpService {
                 boolean b = getUserPasswordMapper.updateUserPasswordCode(
                         uuid, gc, System.currentTimeMillis() + (3600 * 1000 * 24));
                 if (b){
-                    return gc;
+                    return new NormalMap().normalSuccessMap(gc);
                 } else {
                     return null;
                 }
@@ -100,7 +82,7 @@ public class UserSignInAndUpService {
             boolean userPasswordRecodeWithCode = getUserPasswordMapper.createUserPasswordRecodeWithCode(
                     uuid, gc, System.currentTimeMillis() + (3600 * 1000 * 24));
             if (!userPasswordRecodeWithCode) {
-                return gc;
+                return new NormalMap().normalSuccessMap(gc);
             } else {
                 return null;
             }
@@ -115,7 +97,8 @@ public class UserSignInAndUpService {
      *  userArchive: UserArchiveModel 用户的账号详情信息
      *  code: String 验证码
      * */
-    public Map<String, Object> nopwdSignin(UserArchiveModel userArchive, String code){
+    public Map<String, Object> nopwdSignin(String accountType, String account, String code){
+        UserArchiveModel userArchive = getUserArchive(accountType, account);
         if (userArchive != null) {
             String uuid = userArchive.getGroup_real_user_id();
             System.out.println("uuid" + uuid);
@@ -140,6 +123,14 @@ public class UserSignInAndUpService {
             return new ErrorMap().errorMap("没有验证码数据");
         }
         return new ErrorMap().errorMap("ID不存在");
+    }
+    // 私有 获取用户档案
+    private UserArchiveModel getUserArchive(String accountType, String account){
+        return switch (accountType) {
+            case "uid" -> getUserArchiveService.getUserArchive(Integer.parseInt(account));
+            case "email" -> getUserArchiveService.getUserArchive(1, account);
+            default -> null;
+        };
     }
     // 私有 判断密码哈希值是否相等
     private Boolean isUserPasswordConsistent(String uuid, String webPwd){
