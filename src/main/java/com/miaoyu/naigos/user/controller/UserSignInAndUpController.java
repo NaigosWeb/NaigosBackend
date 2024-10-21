@@ -33,10 +33,11 @@ public class UserSignInAndUpController {
     @PostMapping("/in")
     public Map<String, Object> userSignIn(
             @RequestParam("account") String account,
-            @RequestParam("password") String password,
+            @RequestParam(value = "password", required = false) String password,
             @RequestParam("login_type") String loginType,
             @RequestParam("account_type") String accountType
     ) {
+        System.out.println(account + loginType + accountType);
         if (Objects.equals(loginType, "normal")){
             return userSignInAndUpService.isUserAndPwdInDatabase(accountType, account, password);
         } else if (Objects.equals(loginType, "nopwd")){
@@ -49,7 +50,7 @@ public class UserSignInAndUpController {
     * 确认无密码登录（当用户已经获取的验证码后确认点击了登录）
     * @param account 账号
     * @param code 验证码
-     * @param accountType 账号类型
+    * @param accountType 账号类型
     * @return Map->JSON
     * */
     @PostMapping("/nopwdcl")

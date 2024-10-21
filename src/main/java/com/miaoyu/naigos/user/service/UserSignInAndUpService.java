@@ -75,7 +75,7 @@ public class UserSignInAndUpService {
                 if (b){
                     return new NormalMap().normalSuccessMap(gc);
                 } else {
-                    return null;
+                    return new ErrorMap().errorMap("生成、写入验证码失败！");
                 }
             }
             // 若数据库中不存在密码表则创建密码表并直接将验证码写入
@@ -84,10 +84,10 @@ public class UserSignInAndUpService {
             if (!userPasswordRecodeWithCode) {
                 return new NormalMap().normalSuccessMap(gc);
             } else {
-                return null;
+                return new ErrorMap().errorMap("生成、写入验证码失败！");
             }
         } else {
-            return null;
+            return new ErrorMap().errorMap("账号档案不存在！");
         }
     }
 
