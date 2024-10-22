@@ -7,6 +7,7 @@ import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -48,4 +49,22 @@ public class GetUserArchiveService {
         return new NormalMap().normalSuccessMap(avatarUrl);
     }
 
+    /**
+     * 获取用户积分和好感度
+     * @param uuid 用户的唯一识别符
+     * @return Map->JSON
+     * */
+    public Map<String, Object> getMeScoreService(String uuid) {
+        UserArchiveModel userArchiveByUuid = getUserArchiveMapper.getUserArchiveByUuid(uuid);
+        if (userArchiveByUuid == null) {
+            return new ErrorMap().errorMap("未找到用户！");
+        }
+        int score = userArchiveByUuid.getScore();
+        int favorite = userArchiveByUuid.getFavorite();
+        Map<String, Integer> dates = new HashMap<String, Integer>();
+        dates.put("score", score);
+        dates.put("favorite", favorite);
+        return new NormalMap().normalSuccessMap(dates);
+
+    }
 }

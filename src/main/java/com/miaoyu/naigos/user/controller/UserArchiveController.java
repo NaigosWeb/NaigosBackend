@@ -4,6 +4,7 @@ import com.miaoyu.naigos.constantsMap.NoLoginMap;
 import com.miaoyu.naigos.constantsMap.NormalMap;
 import com.miaoyu.naigos.jwtHandle.JwtParser;
 import com.miaoyu.naigos.user.service.GetUserArchiveService;
+import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +21,8 @@ public class UserArchiveController {
 
     @Autowired
     private JwtParser jwtParser;
+    @Autowired
+    private NeedTokenUtil needTokenUtil;
 
     /**
      * 获取用户的详情信息
@@ -39,7 +42,15 @@ public class UserArchiveController {
                 getUserArchiveService.getUserArchive(2, (String) payload.get("data"))
         );
     }
-
+    @GetMapping("me_score")
+    public Map<String, Object> getMeScore(@RequestHeader("Authorization") String token) {
+        Map<String, Object> tokenUtil = needTokenUtil.tokenUtil(token, "web");
+        if ((int) tokenUtil.get("code") == 1) {
+            return tokenUtil;
+        }
+        String uuid = (String) tokenUtil.get("data");
+        return getUserArchiveService.getMeScoreService(uuid);
+    }
     /**
      * 获取用户的头像地址
      * @param token 有效的令牌
