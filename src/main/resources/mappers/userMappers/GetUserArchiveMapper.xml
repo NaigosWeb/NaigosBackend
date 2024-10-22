@@ -11,4 +11,13 @@
     <select id="getUserArchiveByUniqueId" resultType="com.miaoyu.naigos.model.UserArchiveModel">
         SELECT * FROM users_users WHERE id = #{uniqueId}
     </select>
+    <select id="getUserJudgeByQqid" resultType="com.miaoyu.naigos.model.UserJudgeModel">
+        SELECT * FROM users_judges WHERE qq_id = #{qqId}
+    </select>
+    <insert id="createUserJudgeFromScore" parameterType="com.miaoyu.naigos.model.UserJudgeModel">
+        INSERT INTO users_judges (qq_id, score, favorite, transfer_archive) VALUES (#{qqId}, #{score}, 20080101, 0)
+    </insert>
+    <update id="updateUserJudgeFromScore" parameterType="com.miaoyu.naigos.model.UserJudgeModel">
+        UPDATE users_judges SET score = #{score} WHERE qq_id = #{qqId}
+    </update>
 </mapper>

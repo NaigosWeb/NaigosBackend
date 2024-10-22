@@ -44,11 +44,11 @@ public class UserArchiveController {
     }
     @GetMapping("me_score")
     public Map<String, Object> getMeScore(@RequestHeader("Authorization") String token) {
-        Map<String, Object> tokenUtil = needTokenUtil.tokenUtil(token, "web");
-        if ((int) tokenUtil.get("code") == 1) {
-            return tokenUtil;
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int) payload.get("code") == 1) {
+            return payload;
         }
-        String uuid = (String) tokenUtil.get("data");
+        String uuid = (String) payload.get("data");
         return getUserArchiveService.getMeScoreService(uuid);
     }
     /**
