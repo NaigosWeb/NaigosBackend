@@ -31,6 +31,7 @@ public class GetUserArchiveService {
         return switch (loginType) {
             case 1 -> getUserArchiveMapper.getUserArchiveByEmail(uid);
             case 2 -> getUserArchiveMapper.getUserArchiveByUuid(uid);
+            case 3 -> getUserArchiveMapper.getUserArchiveByQqId(Integer.valueOf(uid));
             default -> null;
         };
     }

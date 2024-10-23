@@ -1,6 +1,6 @@
 package com.miaoyu.naigos.user.controller;
 
-import com.miaoyu.naigos.user.service.UserCheckinService;
+import com.miaoyu.naigos.user.service.TransArchiveService;
 import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,21 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RequestMapping("/users/checkin")
 @RestController
-public class UserCheckinController {
+@RequestMapping("/users/trans_archive")
+public class TransArchiveController {
     @Autowired
     private NeedTokenUtil needTokenUtil;
     @Autowired
-    private UserCheckinService userCheckinService;
+    private TransArchiveService transArchiveService;
 
     @GetMapping("/web")
-    public Map<String, Object> webCheckin(@RequestHeader("Authorization") String token) {
+    public Map<String, Object> transArchive(@RequestHeader("Authorization") String token) {
         Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
-        if ((int) payload.get("code") == 1){
+        if ((int)payload.get("code") == 1){
             return payload;
         }
-        String uuid = (String) payload.get("data");
-        return userCheckinService.webCheckinService(uuid);
+        return transArchiveService.transArchiveService((String) payload.get("data"));
     }
 }

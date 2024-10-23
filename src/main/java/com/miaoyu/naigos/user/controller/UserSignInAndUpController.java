@@ -61,4 +61,16 @@ public class UserSignInAndUpController {
     ){
         return userSignInAndUpService.nopwdSignin(accountType, account, code);
     }
+
+    /***/
+    @PostMapping("/up")
+    public Map<String, Object> userSignUp(
+            @RequestParam("email") String email,
+            @RequestParam(value = "nickname", required = false) String nickname,
+            @RequestParam("qq_id") String qqId,
+            @RequestParam("password") String password,
+            @RequestParam(value = "city", required = false) String city
+    ){
+
+    }
 }

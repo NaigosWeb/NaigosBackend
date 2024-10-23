@@ -124,6 +124,24 @@ public class UserSignInAndUpService {
         }
         return new ErrorMap().errorMap("ID不存在");
     }
+    public Map<String, Object> userSignupService(String email,
+                                                 String nickname,
+                                                 String qqId,
+                                                 String password,
+                                                 String city){
+        if (nickname == null){nickname = "新用户" + email;}
+        if (city == null){city = "unknown";}
+        UserArchiveModel userArchive = getUserArchiveService.getUserArchive(1, email);
+        if (userArchive != null){
+            return new ErrorMap().errorMap("该电子邮箱已被注册！");
+        }
+        userArchive = getUserArchiveService.getUserArchive(3, qqId);
+        if (userArchive != null){
+            return new ErrorMap().errorMap("该QQ号已被注册！");
+        }
+
+    }
+
     // 私有 获取用户档案
     private UserArchiveModel getUserArchive(String accountType, String account){
         return switch (accountType) {
