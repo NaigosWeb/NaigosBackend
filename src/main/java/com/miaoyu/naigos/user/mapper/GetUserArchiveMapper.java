@@ -17,7 +17,8 @@ public interface GetUserArchiveMapper {
                                     String uuid);
     boolean webRegisterUserArchiveByEmail(String email,
                                           String nickname,
-                                          String city);
+                                          String uuid,
+                                          Integer qqId);
 
 
     UserJudgeModel getUserJudgeByQqid(Integer qqId);

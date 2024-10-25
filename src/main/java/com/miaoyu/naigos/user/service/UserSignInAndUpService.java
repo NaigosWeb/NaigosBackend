@@ -6,6 +6,7 @@ import com.miaoyu.naigos.jwtHandle.JwtSigned;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.model.UserPasswordModel;
 import com.miaoyu.naigos.service.AppService;
+import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
 import com.miaoyu.naigos.user.mapper.GetUserPasswordMapper;
 import com.miaoyu.naigos.user.mapper.IsUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class UserSignInAndUpService {
@@ -29,6 +29,8 @@ public class UserSignInAndUpService {
     private GetUserPasswordMapper getUserPasswordMapper;
     @Autowired
     private JwtSigned jwtSigned;
+    @Autowired
+    private GetUserArchiveMapper getUserArchiveMapper;
 
     /**
     * 处理账号是否存在数据库且密码是否正确
@@ -125,12 +127,9 @@ public class UserSignInAndUpService {
         return new ErrorMap().errorMap("ID不存在");
     }
     public Map<String, Object> userSignupService(String email,
-                                                 String nickname,
                                                  String qqId,
-                                                 String password,
-                                                 String city){
-        if (nickname == null){nickname = "新用户" + email;}
-        if (city == null){city = "unknown";}
+                                                 String password){
+        String nickname = "新用户" + email;
         UserArchiveModel userArchive = getUserArchiveService.getUserArchive(1, email);
         if (userArchive != null){
             return new ErrorMap().errorMap("该电子邮箱已被注册！");
@@ -139,9 +138,42 @@ public class UserSignInAndUpService {
         if (userArchive != null){
             return new ErrorMap().errorMap("该QQ号已被注册！");
         }
-
+        String uuid;
+        do {
+            uuid = generateUuid(email);
+            userArchive = getUserArchiveService.getUserArchive(2, uuid);
+            if (userArchive != null){
+                uuid = null;
+            }
+        } while (uuid == null);
+        boolean b = getUserArchiveMapper.webRegisterUserArchiveByEmail(email, nickname, uuid, Integer.valueOf(qqId));
+        if (b){
+            boolean userPasswordRecodeWithPassword = getUserPasswordMapper.createUserPasswordRecodeWithPassword(uuid, passwordHash(password));
+            if (!userPasswordRecodeWithPassword) {
+                return new NormalMap().normalSuccessMap("注册成功！但密码写入失败，这是严重问题，请寻找站长！");
+            } else {
+                String token = jwtSigned.jwtSigned("web", uuid);
+                Map<String, Object> result = new HashMap<>();
+                result.put("token", token);
+                result.put("message", "注册成功！");
+                return new NormalMap().normalSuccessMap(result);
+            }
+        } else {
+            return new ErrorMap().errorMap("注册失败！");
+        }
     }
 
+    // 私有 根据邮箱地址和时间戳计算UUID
+    private String generateUuid(String email){
+        try {
+            long timestamp = System.currentTimeMillis();
+            String emailTimestampTogether = email + timestamp;
+            UUID uuid = UUID.nameUUIDFromBytes(emailTimestampTogether.getBytes());
+            return uuid.toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     // 私有 获取用户档案
     private UserArchiveModel getUserArchive(String accountType, String account){
         return switch (accountType) {

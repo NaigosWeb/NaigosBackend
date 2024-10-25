@@ -71,6 +71,6 @@ public class UserSignInAndUpController {
             @RequestParam("password") String password,
             @RequestParam(value = "city", required = false) String city
     ){
-
+        return userSignInAndUpService.userSignupService(email, qqId, password);
     }
 }
