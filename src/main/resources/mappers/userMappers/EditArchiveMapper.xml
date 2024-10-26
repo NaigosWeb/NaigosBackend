@@ -1,0 +1,7 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaoyu.naigos.user.mapper.EditArchiveMapper">
+    <update id="editArchiveByUuid" parameterType="com.miaoyu.naigos.model.UserArchiveModel">
+        UPDATE users_users SET nickname = #{nickname}, email = #{email}, qq_id = #{qqId}, city = #{city} WHERE group_real_user_id = #{uuid}
+    </update>
+</mapper>
