@@ -77,4 +77,12 @@ public class UserArchiveController {
         }
         return getUserArchiveService.getMePermissionService((String) payload.get("data"));
     }
+    @GetMapping("/me_permi_list")
+    public Map<String, Object> getMePermiList(@RequestHeader("Authorization") String token) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int) payload.get("code") == 1) {
+            return payload;
+        }
+        return getUserArchiveService.getMePermissionServiceList((String) payload.get("data"));
+    }
 }

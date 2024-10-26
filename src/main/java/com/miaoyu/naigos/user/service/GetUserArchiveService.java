@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -99,5 +100,48 @@ public class GetUserArchiveService {
         }
         datas.put("permissions", userPermiDB.getPermission());
         return new NormalMap().normalSuccessMap(datas);
+    }
+    public Map<String, Object> getMePermissionServiceList(String uuid) {
+        UserPermiModel userPermiDB = getUserArchiveMapper.getUserPermiByUuid(uuid);
+        List<Map<String, Object>> list = new ArrayList<>();
+        if (userPermiDB == null) {
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("permissions", PermiConst.USER);
+            datas.put("cn", permiConst.toString(PermiConst.USER));
+            list.add(datas);
+            return new NormalMap().normalSuccessMap(list);
+        }
+        userPermi.setPermissions(userPermiDB.getPermission()); // 挂载用户权限数字
+        if (userPermi.hasPermission(PermiConst.ADMIN)){
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("permissions", PermiConst.ADMIN);
+            datas.put("cn", permiConst.toString(PermiConst.ADMIN));
+            list.add(datas);
+        }
+        if (userPermi.hasPermission(PermiConst.MANAGER)){
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("permissions", PermiConst.MANAGER);
+            datas.put("cn", permiConst.toString(PermiConst.MANAGER));
+            list.add(datas);
+        }
+        if (userPermi.hasPermission(PermiConst.DEVELOPER)){
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("permissions", PermiConst.DEVELOPER);
+            datas.put("cn", permiConst.toString(PermiConst.DEVELOPER));
+            list.add(datas);
+        }
+        if (userPermi.hasPermission(PermiConst.CREATOR)){
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("permissions", PermiConst.CREATOR);
+            datas.put("cn", permiConst.toString(PermiConst.CREATOR));
+            list.add(datas);
+        }
+        if (userPermi.hasPermission(PermiConst.USER)){
+            Map<String, Object> datas = new HashMap<>();
+            datas.put("permissions", PermiConst.USER);
+            datas.put("cn", permiConst.toString(PermiConst.USER));
+            list.add(datas);
+        }
+        return new NormalMap().normalSuccessMap(list);
     }
 }
