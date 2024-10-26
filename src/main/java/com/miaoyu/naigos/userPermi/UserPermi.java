@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserPermi {
     private int permissions;
-
+    // 设置用户的权限数
     public void setPermissions(int permissions) {
         this.permissions = permissions;
     }
-
+    // 检查是否拥有某个权限
     public boolean hasPermission(int permission) {
         return (this.permissions & permission) != 0;
     }

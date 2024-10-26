@@ -84,7 +84,8 @@ public class GetUserArchiveService {
             datas.put("cn", permiConst.toString(PermiConst.USER));
             return new NormalMap().normalSuccessMap(datas);
         }
-        userPermi.setPermissions(userPermiDB.getPermission());
+        userPermi.setPermissions(userPermiDB.getPermission()); // 挂载用户权限数字
+        // 分析权限
         if (userPermi.hasPermission(PermiConst.ADMIN)){
             datas.put("cn", permiConst.toString(PermiConst.ADMIN));
         } else if (userPermi.hasPermission(PermiConst.MANAGER)) {
