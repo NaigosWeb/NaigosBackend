@@ -2,12 +2,14 @@ package com.miaoyu.naigos.user.mapper;
 
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.model.UserJudgeModel;
+import com.miaoyu.naigos.model.UserPermiModel;
 
 public interface GetUserArchiveMapper {
     UserArchiveModel getUserArchiveByEmail(String email);
     UserArchiveModel getUserArchiveByUuid(String uuid);
     UserArchiveModel getUserArchiveByUniqueId(Integer uniqueId);
     UserArchiveModel getUserArchiveByQqId(Integer qqId);
+    UserPermiModel getUserPermiByUuid(String uuid);
     boolean updateUserArchiveByUuid(Integer qqId,
                                     String nickname,
                                     String city,

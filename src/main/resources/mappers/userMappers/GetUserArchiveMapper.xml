@@ -14,6 +14,9 @@
     <select id="getUserArchiveByQqId" resultType="com.miaoyu.naigos.model.UserArchiveModel">
         SELECT * FROM users_users WHERE qq_id = #{qqId}
     </select>
+    <select id="getUserPermiByUuid" resultType="com.miaoyu.naigos.model.UserPermiModel">
+        SELECT * FROM user_permission WHERE uuid = #{uuid}
+    </select>
     <update id="updateUserArchiveByUuid" parameterType="com.miaoyu.naigos.model.UserArchiveModel">
         UPDATE users_users SET qq_id = #{qqId}, nickname = #{nickname}, city = #{city}, score = #{score}, favorite = #{favorite}, avatar = #{avatar} WHERE group_real_user_id = #{uuid}
     </update>

@@ -68,4 +68,13 @@ public class UserArchiveController {
         String uuid = (String) payload.get("data");
         return getUserArchiveService.getMeAvatarService(uuid);
     }
+
+    @GetMapping("/me_permi")
+    public Map<String, Object> getMePermi(@RequestHeader("Authorization") String token) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int) payload.get("code") == 1) {
+            return payload;
+        }
+        return getUserArchiveService.getMePermissionService((String) payload.get("data"));
+    }
 }

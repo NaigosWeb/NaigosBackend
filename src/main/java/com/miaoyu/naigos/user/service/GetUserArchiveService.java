@@ -3,10 +3,14 @@ package com.miaoyu.naigos.user.service;
 import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.NormalMap;
 import com.miaoyu.naigos.model.UserArchiveModel;
+import com.miaoyu.naigos.model.UserPermiModel;
 import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
+import com.miaoyu.naigos.userPermi.PermiConst;
+import com.miaoyu.naigos.userPermi.UserPermi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +70,33 @@ public class GetUserArchiveService {
         dates.put("score", score);
         dates.put("favorite", favorite);
         return new NormalMap().normalSuccessMap(dates);
+    }
 
+    @Autowired
+    private PermiConst permiConst;
+    @Autowired
+    private UserPermi userPermi;
+    public Map<String, Object> getMePermissionService(String uuid) {
+        UserPermiModel userPermiDB = getUserArchiveMapper.getUserPermiByUuid(uuid);
+        Map<String, Object> datas = new HashMap<>();
+        if (userPermiDB == null) {
+            datas.put("permissions", PermiConst.USER);
+            datas.put("cn", permiConst.toString(PermiConst.USER));
+            return new NormalMap().normalSuccessMap(datas);
+        }
+        userPermi.setPermissions(userPermiDB.getPermission());
+        if (userPermi.hasPermission(PermiConst.ADMIN)){
+            datas.put("cn", permiConst.toString(PermiConst.ADMIN));
+        } else if (userPermi.hasPermission(PermiConst.MANAGER)) {
+            datas.put("cn", permiConst.toString(PermiConst.MANAGER));
+        } else if (userPermi.hasPermission(PermiConst.DEVELOPER)) {
+            datas.put("cn", permiConst.toString(PermiConst.DEVELOPER));
+        } else if (userPermi.hasPermission(PermiConst.CREATOR)) {
+            datas.put("cn", permiConst.toString(PermiConst.CREATOR));
+        } else {
+            datas.put("cn", permiConst.toString(PermiConst.USER));
+        }
+        datas.put("permissions", userPermiDB.getPermission());
+        return new NormalMap().normalSuccessMap(datas);
     }
 }
