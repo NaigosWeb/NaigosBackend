@@ -1,6 +1,7 @@
 package com.miaoyu.naigos.model;
 
 public class NaigosNoticeModel {
+    private String notice_id;
     private String title;
     private String content;
     private String author;
@@ -8,6 +9,14 @@ public class NaigosNoticeModel {
     private String image;
     private long upload_date;
     private long last_date;
+
+    public String getNotice_id() {
+        return notice_id;
+    }
+
+    public void setNotice_id(String notice_id) {
+        this.notice_id = notice_id;
+    }
 
     public String getTitle() {
         return title;

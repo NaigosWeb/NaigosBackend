@@ -9,7 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan({
         "com.miaoyu.naigos.bot.mapper",
         "com.miaoyu.naigos.user.mapper",
-        "com.miaoyu.naigos.api.SgTheme.mapper"
+        "com.miaoyu.naigos.api.SgTheme.mapper",
+        "com.miaoyu.naigos.api.NaigosNotice.mapper"
 })
 public class NaigosBackendApplication {
 
