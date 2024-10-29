@@ -16,5 +16,10 @@ public class ErrorMap {
         data.put("message", "账号权限不足！Insufficient Permissions");
         return data;
     }
-    
+    public Map<String, Object> noSuchArchive(){
+        Map<String, Object> data = new HashMap<>();
+        data.put("code", 1);
+        data.put("message", "档案未找到！");
+        return data;
+    }
 }

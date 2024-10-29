@@ -23,6 +23,6 @@ public class UpdateNoticeService {
         if (!userPermi.hasPermission(PermiConst.MANAGER) && !userPermi.hasPermission(PermiConst.ADMIN)){
             return new ErrorMap().insufficientAccountPermissions();
         }
-
+        
     }
 }
