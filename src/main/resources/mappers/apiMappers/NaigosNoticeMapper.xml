@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miaoyu.naigos.api.NaigosNotice.mapper.NaigosNoticeMapper">
     <select id="getAllNotice" resultType="com.miaoyu.naigos.model.NaigosNoticeModel">
-        SELECT * FROM api_naigosnotice
+        SELECT * FROM api_naigosnotice ORDER BY last_date DESC
     </select>
     <select id="getNoticeById" resultType="com.miaoyu.naigos.model.NaigosNoticeModel">
         SELECT * FROM api_naigosnotice WHERE notice_id = #{notice_id}
