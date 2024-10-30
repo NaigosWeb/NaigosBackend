@@ -22,4 +22,10 @@ public class ErrorMap {
         data.put("message", "档案未找到！");
         return data;
     }
+    public Map<String, Object> apiFetchError(){
+        Map<String, Object> data = new HashMap<>();
+        data.put("code", 1);
+        data.put("message", "接口请求出错！");
+        return data;
+    }
 }
