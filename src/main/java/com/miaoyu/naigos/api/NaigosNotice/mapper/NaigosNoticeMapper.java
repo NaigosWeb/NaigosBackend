@@ -3,8 +3,10 @@ package com.miaoyu.naigos.api.NaigosNotice.mapper;
 import com.miaoyu.naigos.model.NaigosNoticeModel;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface NaigosNoticeMapper {
-    NaigosNoticeModel[] getAllNotice();
+    List<NaigosNoticeModel> getAllNotice();
     NaigosNoticeModel getNoticeById(@Param("notice_id") String noticeId);
     boolean uploadNotice(@Param("noticeId") String noticeId,
                          @Param("title") String title,

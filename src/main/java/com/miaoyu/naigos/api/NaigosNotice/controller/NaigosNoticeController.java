@@ -1,6 +1,7 @@
 package com.miaoyu.naigos.api.NaigosNotice.controller;
 
 import com.miaoyu.naigos.api.NaigosNotice.service.DeleteNoticeService;
+import com.miaoyu.naigos.api.NaigosNotice.service.GetNoticeService;
 import com.miaoyu.naigos.api.NaigosNotice.service.UpdateNoticeService;
 import com.miaoyu.naigos.api.NaigosNotice.service.UploadNoticeService;
 import com.miaoyu.naigos.model.NaigosNoticeModel;
@@ -16,12 +17,22 @@ public class NaigosNoticeController {
     @Autowired
     private NeedTokenUtil needTokenUtil;
     @Autowired
+    private GetNoticeService getNoticeService;
+    @Autowired
     private UploadNoticeService uploadNoticeService;
     @Autowired
     private UpdateNoticeService updateNoticeService;
     @Autowired
     private DeleteNoticeService deleteNoticeService;
 
+    @GetMapping("/all")
+    public Map<String, Object> getAllNoticeController(){
+        return getNoticeService.getAllNoticeService();
+    }
+    @GetMapping("/only")
+    public Map<String, Object> getNoticeByIdController(@RequestParam("notice_id") String noticeId){
+        return getNoticeService.getNoticeByIdService(noticeId);
+    }
     @PostMapping("/upload")
     public Map<String, Object> uploadNoticeController(
             @RequestHeader("Authorization") String token,
