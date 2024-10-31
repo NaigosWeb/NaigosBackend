@@ -7,6 +7,9 @@
     <select id="getNoticeById" resultType="com.miaoyu.naigos.model.NaigosNoticeModel">
         SELECT * FROM api_naigosnotice WHERE notice_id = #{notice_id}
     </select>
+    <select id="getAllNoticeByUuid" resultType="com.miaoyu.naigos.model.NaigosNoticeModel">
+        SELECT * FROM api_naigosnotice WHERE author = #{author}
+    </select>
     <insert id="uploadNotice" parameterType="com.miaoyu.naigos.model.NaigosNoticeModel">
         INSERT INTO api_naigosnotice (notice_id, title, content, author, attachment, image, upload_date, last_date) VALUES (#{noticeId}, #{title}, #{content}, #{author}, #{attachment}, #{image}, #{upload_date}, #{last_date})
     </insert>

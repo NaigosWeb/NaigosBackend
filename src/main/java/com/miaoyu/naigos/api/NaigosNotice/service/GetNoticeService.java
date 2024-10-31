@@ -4,6 +4,11 @@ import com.miaoyu.naigos.api.NaigosNotice.mapper.NaigosNoticeMapper;
 import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
 import com.miaoyu.naigos.model.NaigosNoticeModel;
+import com.miaoyu.naigos.model.UserPermiModel;
+import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
+import com.miaoyu.naigos.userPermi.GetUserPermiFromDB;
+import com.miaoyu.naigos.userPermi.PermiConst;
+import com.miaoyu.naigos.userPermi.UserPermi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +29,8 @@ public class GetNoticeService {
             return new ErrorMap().errorMap("该公告不存在！");
         }
         return new SuccessMap().standardSuccessMap(notice);
+    }
+    public Map<String, Object> getAllNoticeByUuidService(String uuid){
+        return new SuccessMap().standardSuccessMap(naigosNoticeMapper.getAllNoticeByUuid(uuid));
     }
 }

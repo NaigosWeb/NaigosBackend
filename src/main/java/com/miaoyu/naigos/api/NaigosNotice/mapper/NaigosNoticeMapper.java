@@ -8,6 +8,7 @@ import java.util.List;
 public interface NaigosNoticeMapper {
     List<NaigosNoticeModel> getAllNotice();
     NaigosNoticeModel getNoticeById(@Param("notice_id") String noticeId);
+    List<NaigosNoticeModel> getAllNoticeByUuid(@Param("author") String uuid);
     boolean uploadNotice(@Param("noticeId") String noticeId,
                          @Param("title") String title,
                          @Param("content") String content,
