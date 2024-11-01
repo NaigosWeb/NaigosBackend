@@ -4,7 +4,7 @@ package com.miaoyu.naigos.model;
 
 public class UserArchiveModel {
     private Integer id;
-    private Integer qq_id;
+    private Long qq_id;
     private String nickname;
     private String group_real_user_id;
     private String register_real_group_id;
@@ -23,11 +23,11 @@ public class UserArchiveModel {
         this.id = id;
     }
 
-    public Integer getQq_id() {
+    public Long getQq_id() {
         return qq_id;
     }
 
-    public void setQq_id(Integer qq_id) {
+    public void setQq_id(Long qq_id) {
         this.qq_id = qq_id;
     }
 

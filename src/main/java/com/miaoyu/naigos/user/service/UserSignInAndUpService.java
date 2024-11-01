@@ -146,7 +146,7 @@ public class UserSignInAndUpService {
                 uuid = null;
             }
         } while (uuid == null);
-        boolean b = getUserArchiveMapper.webRegisterUserArchiveByEmail(email, nickname, uuid, Integer.valueOf(qqId));
+        boolean b = getUserArchiveMapper.webRegisterUserArchiveByEmail(email, nickname, uuid, Long.valueOf(qqId));
         if (b){
             boolean userPasswordRecodeWithPassword = getUserPasswordMapper.createUserPasswordRecodeWithPassword(uuid, passwordHash(password));
             if (!userPasswordRecodeWithPassword) {

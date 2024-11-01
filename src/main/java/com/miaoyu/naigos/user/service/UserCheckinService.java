@@ -24,7 +24,7 @@ public class UserCheckinService {
 
     public Map<String, Object> webCheckinService(String uuid) {
         UserArchiveModel userArchive = getUserArchiveMapper.getUserArchiveByUuid(uuid);
-        Integer qqId = userArchive.getQq_id();
+        Long qqId = userArchive.getQq_id();
         if (qqId == null) {
             return new ErrorMap().errorMap("账号还没有绑定您的QQ号无法启用全部功能！");
         }
@@ -36,10 +36,10 @@ public class UserCheckinService {
         Random random = new Random();
         int randomInt = 15 + random.nextInt(35 - 15 + 1);
         // 处理是否本日首次签到
-        UserJudgeModel userJudge = getUserArchiveMapper.getUserJudgeByQqid(qqId);
+        UserJudgeModel userJudge = getUserArchiveMapper.getUserJudgeByQqid(String.valueOf(qqId));
         if (userJudge == null) {
             // 库表中没有该用户的记录 创建记录 完成签到
-            boolean createJudge = getUserArchiveMapper.createUserJudgeFromScore(qqId, formattedDate);
+            boolean createJudge = getUserArchiveMapper.createUserJudgeFromScore(String.valueOf(qqId), formattedDate);
             if (createJudge) {
                 Integer score = userArchive.getScore();
                 score += randomInt;
@@ -55,7 +55,7 @@ public class UserCheckinService {
         }
         // 有表且当天首日签到
         if (!Objects.equals(userJudge.getScore(), formattedDate)) {
-            boolean isUpdateScoreJudge = getUserArchiveMapper.updateUserJudgeFromScore(qqId, formattedDate);
+            boolean isUpdateScoreJudge = getUserArchiveMapper.updateUserJudgeFromScore(String.valueOf(qqId), formattedDate);
             if (isUpdateScoreJudge) {
                 Integer score = userArchive.getScore();
                 score += randomInt;

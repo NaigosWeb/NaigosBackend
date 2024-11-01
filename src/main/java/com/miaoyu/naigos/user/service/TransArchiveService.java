@@ -26,12 +26,12 @@ public class TransArchiveService {
         if (userArchive == null) {
             return new ErrorMap().errorMap("未找到用户档案");
         }
-        Integer qqId = userArchive.getQq_id();
+        Long qqId = userArchive.getQq_id();
         if (qqId == null) {
             return new ErrorMap().errorMap("未绑定QQ号，请为当前档案绑定QQ号！");
         }
         OldArchiveEntity oldArchive = transArchiveMapper.getOldArchiveByQqId(String.valueOf(qqId));
-        UserJudgeModel userJudge = getUserArchiveMapper.getUserJudgeByQqid(qqId);
+        UserJudgeModel userJudge = getUserArchiveMapper.getUserJudgeByQqid(String.valueOf(qqId));
         if (oldArchive == null) {
             return new ErrorMap().errorMap("旧档案不存在！");
         }
@@ -39,17 +39,17 @@ public class TransArchiveService {
             return new ErrorMap().errorMap("您曾完成过档案转移！不可再执行！");
         }
         if (userJudge == null) {
-            boolean userJudgeInitNoTrans = getUserArchiveMapper.createUserJudgeInitNoTrans(qqId);
+            boolean userJudgeInitNoTrans = getUserArchiveMapper.createUserJudgeInitNoTrans(String.valueOf(qqId));
             if (!userJudgeInitNoTrans) {
                 return new ErrorMap().errorMap("服务器数据错误！");
             }
         }
-        boolean b = getUserArchiveMapper.updateUserJudgeTransFalse(qqId);
+        boolean b = getUserArchiveMapper.updateUserJudgeTransFalse(String.valueOf(qqId));
         if (!b) {
             return new ErrorMap().errorMap("服务器数据错误！");
         }
         boolean isUpdateArchive = getUserArchiveMapper.updateUserArchiveByUuid(
-                qqId,
+                Long.valueOf(qqId),
                 oldArchive.getUsername(),
                 oldArchive.getCity(),
                 userArchive.getScore() + oldArchive.getScore(),

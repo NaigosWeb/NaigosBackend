@@ -8,9 +8,9 @@ public interface GetUserArchiveMapper {
     UserArchiveModel getUserArchiveByEmail(String email);
     UserArchiveModel getUserArchiveByUuid(String uuid);
     UserArchiveModel getUserArchiveByUniqueId(Integer uniqueId);
-    UserArchiveModel getUserArchiveByQqId(Integer qqId);
+    UserArchiveModel getUserArchiveByQqId(Long qqId);
     UserPermiModel getUserPermiByUuid(String uuid);
-    boolean updateUserArchiveByUuid(Integer qqId,
+    boolean updateUserArchiveByUuid(Long qqId,
                                     String nickname,
                                     String city,
                                     Integer score,
@@ -20,13 +20,13 @@ public interface GetUserArchiveMapper {
     boolean webRegisterUserArchiveByEmail(String email,
                                           String nickname,
                                           String uuid,
-                                          Integer qqId);
+                                          Long qqId);
 
 
-    UserJudgeModel getUserJudgeByQqid(Integer qqId);
-    boolean createUserJudgeInit(Integer qqId);
-    boolean createUserJudgeInitNoTrans(Integer qqId);
-    boolean createUserJudgeFromScore(Integer qqId, String score);
-    boolean updateUserJudgeFromScore(Integer qqId, String score);
-    boolean updateUserJudgeTransFalse(Integer qqId);
+    UserJudgeModel getUserJudgeByQqid(String qqId);
+    boolean createUserJudgeInit(String qqId);
+    boolean createUserJudgeInitNoTrans(String qqId);
+    boolean createUserJudgeFromScore(String qqId, String score);
+    boolean updateUserJudgeFromScore(String qqId, String score);
+    boolean updateUserJudgeTransFalse(String qqId);
 }
