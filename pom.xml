@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.0.5</version>
+    <version>0.1.2</version>
     <name>Naigos</name>
     <description>Naigos</description>
     <url/>
