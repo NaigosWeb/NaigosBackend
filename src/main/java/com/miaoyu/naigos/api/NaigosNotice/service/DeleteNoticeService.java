@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class DeleteNoticeService {
@@ -24,17 +23,24 @@ public class DeleteNoticeService {
 
     public Map<String, Object> deleteNoticeService(String uuid, String noticeId){
         NaigosNoticeModel noticeDetail = naigosNoticeMapper.getNoticeById(noticeId);
-        userPermi.setPermissions(getUserPermiFromDB.getUserPermiByUuidService(uuid));
+        int userPermission = getUserPermiFromDB.getUserPermiByUuidService(uuid);
+        userPermi.setPermissions(userPermission);
         if (noticeDetail == null){
             return new ErrorMap().errorMap("公告不存在！");
         }
-        if (!userPermi.hasPermission(PermiConst.ADMIN) && !Objects.equals(noticeDetail.getAuthor(), uuid)){
-            return new ErrorMap().errorMap("您既不是该公告的发布者也不是超级管理员！");
+        if (userPermi.hasPermission(PermiConst.ADMIN)){
+            boolean b = naigosNoticeMapper.deleteNoticeAdmin(noticeId);
+            if (b){
+                return new SuccessMap().standardSuccessMap("超级管理员删除公告成功！");
+            }
+            return new ErrorMap().errorMap("超级管理员删除公告失败！");
+        } else if (userPermi.hasPermission(PermiConst.MANAGER)) {
+            boolean b = naigosNoticeMapper.deleteNotice(noticeId, uuid);
+            if (b){
+                return new SuccessMap().standardSuccessMap("删除公告成功！");
+            }
+            return new ErrorMap().errorMap("删除公告失败！");
         }
-        boolean b = naigosNoticeMapper.deleteNotice(noticeId, uuid);
-        if (b){
-            return new SuccessMap().standardSuccessMap("删除公告成功！");
-        }
-        return new ErrorMap().errorMap("删除公告失败！");
+        return new ErrorMap().errorMap("您既不是该公告的发布者也不是超级管理员！");
     }
 }

@@ -13,7 +13,6 @@ import com.miaoyu.naigos.userPermi.UserPermi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
-import java.util.SortedMap;
 
 @Service
 public class ManageUserService {

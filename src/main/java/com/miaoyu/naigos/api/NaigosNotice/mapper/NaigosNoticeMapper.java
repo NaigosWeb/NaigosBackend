@@ -1,6 +1,7 @@
 package com.miaoyu.naigos.api.NaigosNotice.mapper;
 
 import com.miaoyu.naigos.model.NaigosNoticeModel;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface NaigosNoticeMapper {
             @Param("image") String image,
             @Param("last_date") long lastDate);
     boolean deleteNotice(@Param("notice_id") String noticeId, @Param("author") String uuid);
+
+    @Delete("DELETE FROM api_naigosnotice WHERE notice_id = #{notice_id} ")
+    boolean deleteNoticeAdmin(@Param("notice_id") String noticeId);
 }
