@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Add user service scope api.
+        Add user get other nickname and archive by uuid.
     </description>
     <url/>
     <licenses>
