@@ -70,7 +70,6 @@ public class GetWeatherService {
                     return new ErrorMap().errorMap("天气无法获取！");
                 }
                 String responseNowWeatherBody = EntityUtils.toString(entity, "UTF-8");
-                System.out.println(responseNowWeatherBody);
                 JSONObject jsonObject = new JSONObject(responseNowWeatherBody);
                 if (!Objects.equals(jsonObject.getString("code"), "200")){
                     return new ErrorMap().errorMap("天气无法获取！");
