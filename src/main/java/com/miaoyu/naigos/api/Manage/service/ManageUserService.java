@@ -36,7 +36,7 @@ public class ManageUserService {
     }
 
     public Map<String, Object> editUserService(String uuid, UserArchiveModel request){
-        int modifiedUserPermission = getUserPermiFromDB.getUserPermiByUuidService(request.getGroup_real_user_id());;
+        int modifiedUserPermission = getUserPermiFromDB.getUserPermiByUuidService(request.getGroup_real_user_id());
         UserArchiveModel modifiedUser = getUserArchiveService.getUserArchive(2, request.getGroup_real_user_id());
         int userPermission = getUserPermiFromDB.getUserPermiByUuidService(uuid);
         userPermi.setPermissions(userPermission);

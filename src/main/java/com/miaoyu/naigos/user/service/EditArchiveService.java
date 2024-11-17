@@ -25,6 +25,9 @@ public class EditArchiveService {
         }
         if (request.getNickname() == null){
             request.setNickname(userArchive.getNickname());
+        }
+        if (request.getEmail() == null){
+            request.setEmail(userArchive.getEmail());
         } else {
             UserArchiveModel userArchiveByEmail = getUserArchiveService.getUserArchive(1, request.getEmail());
             if (userArchiveByEmail != null &&
@@ -32,9 +35,6 @@ public class EditArchiveService {
             ) {
                 return new ErrorMap().errorMap("您要更换的电子邮箱已经绑定其他档案！");
             }
-        }
-        if (request.getEmail() == null){
-            request.setEmail(userArchive.getEmail());
         }
         if (request.getQq_id() == null){
             request.setQq_id(userArchive.getQq_id());
