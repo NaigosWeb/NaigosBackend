@@ -4,8 +4,8 @@ import com.miaoyu.naigos.api.Theme.service.ThemeClassifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Map;
 
 @RestController
@@ -18,4 +18,12 @@ public class ThemeClassifyController {
     public Map<String, Object> getAllClassifyBriefController() {
         return themeClassifyService.getAllThemeClassifyBriefService();
     }
+
+    @GetMapping("/eligible")
+    public Map<String, Object> getEligibleClassifyController(
+            @RequestParam("classify_id") String classifyId
+    ) {
+        return themeClassifyService.getEligibleClassifyService(classifyId);
+    }
+
 }
