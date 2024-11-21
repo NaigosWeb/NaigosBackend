@@ -17,7 +17,7 @@ public class ThemeClassifyService {
         return new SuccessMap().standardSuccessMap(themeClassifyMapper.getAllThemeClassifyBrief());
     }
 
-    public Map<String, Object> getEligibleClassifyService(String classifyId){
+    public Map<String, Object> getEligibleClassifyService(String classifyId) {
         ThemeClassifyModel themeEligibleClassify = themeClassifyMapper.getThemeEligibleClassify(classifyId);
         if (themeEligibleClassify == null) {
             return new ErrorMap().resourceNotExist();

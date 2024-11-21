@@ -25,5 +25,4 @@ public class ThemeClassifyController {
     ) {
         return themeClassifyService.getEligibleClassifyService(classifyId);
     }
-
 }

@@ -12,6 +12,4 @@ public interface ThemeClassifyMapper {
 
     @Select("SELECT * FROM api_theme_classify WHERE classify_id = #{classify_id}")
     ThemeClassifyModel getThemeEligibleClassify(@Param("classify_id") String classifyId);
-
-
 }
