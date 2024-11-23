@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.miaoyu.naigos.api.Theme.entity.TestRequestEntity;
 import com.miaoyu.naigos.api.Theme.service.TestService;
 import com.miaoyu.naigos.api.Theme.service.ThemeService;
+import com.miaoyu.naigos.model.ThemeModel;
+import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ import java.util.Map;
 public class ThemeController {
     @Autowired
     private ThemeService themeService;
+    @Autowired
+    private NeedTokenUtil needTokenUtil;
 
     @GetMapping("/all_brief")
     public Map<String, Object> getAllThemeBriefController() {
@@ -32,6 +36,18 @@ public class ThemeController {
             @RequestParam("theme_id") String themeId
     ) {
         return themeService.getEligibleThemeService(themeId);
+    }
+
+    @PostMapping("/upload")
+    public Map<String, Object> uploadThemeController(
+            @RequestBody ThemeModel request,
+            @RequestHeader("Authorization") String token
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int)payload.get("code") == 1){
+            return payload;
+        }
+        return themeService.uploadThemeService(payload.get("data").toString(), request);
     }
 
     @Autowired

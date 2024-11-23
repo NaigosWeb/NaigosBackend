@@ -10,6 +10,15 @@ public class ThemeModel {
     private String eject_image;
     private String theme_id;
     private String classify_id;
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getName() {
         return name;

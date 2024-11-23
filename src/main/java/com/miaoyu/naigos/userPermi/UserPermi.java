@@ -22,4 +22,8 @@ public class UserPermi {
         }
         System.out.println("Permissions: " + binaryString);
     }
+
+    public boolean matchPermission(int userPermission, int basicPermission) {
+        return (userPermission & basicPermission) != 0;
+    }
 }

@@ -17,4 +17,7 @@ public class GetUserPermiFromDB {
         }
         return userPermi.getPermission();
     }
+    public UserPermiModel getUserPermiRecordService(String uuid){
+        return getUserArchiveMapper.getUserPermiByUuid(uuid);
+    }
 }
