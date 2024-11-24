@@ -1,7 +1,7 @@
 package com.miaoyu.naigos.api.Theme.service;
 
 import com.miaoyu.naigos.api.Manage.mapper.ManageUserMapper;
-import com.miaoyu.naigos.api.Theme.entity.ThemeBriefEntity;
+import com.miaoyu.naigos.api.SgTheme.service.GetSgService;
 import com.miaoyu.naigos.api.Theme.mapper.ThemeMapper;
 import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
@@ -15,6 +15,7 @@ import com.miaoyu.naigos.userPermi.UserPermi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class ThemeService {
@@ -23,6 +24,7 @@ public class ThemeService {
     @Autowired private UserPermi userPermi;
     @Autowired private GetUserArchiveService getUserArchiveService;
     @Autowired private ManageUserMapper manageUserMapper;
+    @Autowired private GetSgService getSgService;
 
     public Map<String, Object> getAllThemeBriefService(){
         return new SuccessMap().standardSuccessMap(themeMapper.selectAllThemeBrief());
@@ -30,6 +32,9 @@ public class ThemeService {
     public Map<String, Object> getAllThemeEligibleBriefService(String classifyId){
         if (classifyId.isEmpty()){
             return new SuccessMap().standardSuccessMap(themeMapper.selectAllNullThemeBrief());
+        }
+        if (Objects.equals(classifyId, "sogou_input_theme")){
+            return new SuccessMap().standardSuccessMap(getSgService.findAllBriefSg().get("data"));
         }
         return new SuccessMap().standardSuccessMap(themeMapper.selectAllEligibleThemeBrief(classifyId));
     }
