@@ -12,7 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "com.miaoyu.naigos.api.SgTheme.mapper",
         "com.miaoyu.naigos.api.NaigosNotice.mapper",
         "com.miaoyu.naigos.api.Manage.mapper",
-        "com.miaoyu.naigos.api.Theme.mapper"
+        "com.miaoyu.naigos.api.Theme.mapper",
+        "com.miaoyu.naigos.api.BlueArchive.mapper"
 })
 public class NaigosBackendApplication {
 
