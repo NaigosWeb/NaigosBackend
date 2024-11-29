@@ -38,17 +38,17 @@ public class ThemeController {
         return themeService.getEligibleThemeService(themeId);
     }
 
-    @PostMapping("/upload")
-    public Map<String, Object> uploadThemeController(
-            @RequestBody ThemeModel request,
-            @RequestHeader("Authorization") String token
-    ) {
-        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
-        if ((int)payload.get("code") == 1){
-            return payload;
-        }
-        return themeService.uploadThemeService(payload.get("data").toString(), request);
-    }
+//    @PostMapping("/upload")
+//    public Map<String, Object> uploadThemeController(
+//            @RequestHeader("Authorization") String token,
+//            @RequestBody ThemeModel request
+//    ) {
+//        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+//        if ((int)payload.get("code") == 1){
+//            return payload;
+//        }
+//        return themeService.uploadThemeService(payload.get("data").toString(), request);
+//    }
 
     @Autowired
     private TestService testService;
