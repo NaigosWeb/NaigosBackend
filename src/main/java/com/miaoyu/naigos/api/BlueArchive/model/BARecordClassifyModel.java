@@ -10,6 +10,15 @@ public class BARecordClassifyModel {
     private String jp_name;
     private String kr_name;
     private String en_name;
+    private String classify_value;
+
+    public String getClassify_value() {
+        return classify_value;
+    }
+
+    public void setClassify_value(String classify_value) {
+        this.classify_value = classify_value;
+    }
 
     public String getClassify_id() {
         return classify_id;
