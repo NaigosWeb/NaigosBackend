@@ -1,6 +1,6 @@
 package com.miaoyu.naigos.api.BlueArchive.model;
 
-public class BAClassifyModel {
+public class BARecordClassifyModel {
     private String classify_id;
     private String router_name;
     private String cover_image;

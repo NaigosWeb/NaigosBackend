@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.1.9</version>
+    <version>0.1.10</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Some about BlueArchive class, Theme classifies and theme items select.
+        Fix BlueArchive Class about theme select. And add theme_id_subcategory sql table.
     </description>
     <url/>
     <licenses>

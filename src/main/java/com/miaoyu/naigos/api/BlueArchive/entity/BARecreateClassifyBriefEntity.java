@@ -1,6 +1,6 @@
 package com.miaoyu.naigos.api.BlueArchive.entity;
 
-public class BAClassifyBriefEntity {
+public class BARecreateClassifyBriefEntity {
     private String classify_id;
     private String router_name;
     private String cover_image;
