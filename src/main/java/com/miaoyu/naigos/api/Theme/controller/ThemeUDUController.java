@@ -38,7 +38,7 @@ public class ThemeUDUController {
         if ((int) payload.get("code") == 1){
             return payload;
         }
-        return null;
+        return themeUDUService.deleteThemeService(payload.get("data").toString(), themeId);
     }
     @PutMapping("/update")
     public Map<String, Object> updateThemeControl(
@@ -49,6 +49,6 @@ public class ThemeUDUController {
         if ((int) payload.get("code") == 1){
             return payload;
         }
-        return null;
+        return themeUDUService.updateThemeService(payload.get("data").toString(), request);
     }
 }

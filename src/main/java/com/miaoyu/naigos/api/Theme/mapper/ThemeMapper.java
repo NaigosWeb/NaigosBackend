@@ -2,9 +2,7 @@ package com.miaoyu.naigos.api.Theme.mapper;
 
 import com.miaoyu.naigos.api.Theme.entity.ThemeBriefEntity;
 import com.miaoyu.naigos.model.ThemeModel;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -23,4 +21,11 @@ public interface ThemeMapper {
 
     @Insert("INSERT INTO api_theme (name, url, introduce, header_image, details_image, cost, eject_image, theme_id, classify_id, author) VALUES (#{name}, #{url}, #{introduce}, #{header_image}, #{details_image}, #{cost}, #{eject_image}, #{theme_id}, #{classify_id}, #{author})")
     boolean insertTheme(ThemeModel themeModel);
+
+    @Delete("DELETE FROM api_theme WHERE theme_id = #{theme_id}")
+    boolean deleteTheme(@Param("theme_id") String themeId);
+
+//    @Insert("INSERT INTO api_theme (name, url, introduce, header_image, details_image, cost, eject_image, theme_id, classify_id, author) VALUES (#{name}, #{url}, #{introduce}, #{header_image}, #{details_image}, #{cost}, #{eject_image}, #{theme_id}, #{classify_id}, #{author})")
+    @Update("UPDATE api_theme SET name = #{name}, url = #{url}, introduce = #{introduce}, header_image = #{header_image}, details_image = #{details_image}, cost = #{cost}, eject_image = #{eject_image}, classify_id = #{classify_id}, author = #{author} WHERE theme_id = #{theme_id}")
+    boolean updateTheme(ThemeModel themeModel);
 }

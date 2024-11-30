@@ -40,12 +40,13 @@ public class ErrorMap {
         data.put("message", "账号被冻结！FREEZE！");
         return data;
     }
-    public Map<String, Object> uploadOrUpdateErrorMap(int upType) {
+    public Map<String, Object> uploadUpdateDeleteErrorMap(int upType) {
         Map<String, Object> data  = new HashMap<>();
         data.put("code", 1);
         switch (upType) {
             case 0: data.put("message", "上传失败！"); break;
             case 1: data.put("message", "更新失败！"); break;
+            case 2: data.put("message", "删除失败！"); break;
             default: break;
         }
         return data;

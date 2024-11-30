@@ -69,8 +69,8 @@ public class ThemeService {
         request.setAuthor(uuid);
         boolean b = themeMapper.insertTheme(request);
         if (b){
-            return new SuccessMap().uploadOrUpdateSuccessMap(0);
+            return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
         }
-        return new ErrorMap().uploadOrUpdateErrorMap(0);
+        return new ErrorMap().uploadUpdateDeleteErrorMap(0);
     }
 }
