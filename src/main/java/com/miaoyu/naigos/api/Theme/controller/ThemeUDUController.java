@@ -51,4 +51,8 @@ public class ThemeUDUController {
         }
         return themeUDUService.updateThemeService(payload.get("data").toString(), request);
     }
+    @GetMapping("/all_classify_subcategory")
+    public Map<String, Object> getAllClassifyCategoryControl() {
+        return themeUDUService.getAllClassifySubcategoryService();
+    }
 }

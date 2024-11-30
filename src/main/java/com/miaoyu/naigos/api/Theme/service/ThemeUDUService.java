@@ -1,14 +1,20 @@
 package com.miaoyu.naigos.api.Theme.service;
 
+import com.miaoyu.naigos.api.Theme.entity.ThemeClassifyBriefEntity;
+import com.miaoyu.naigos.api.Theme.mapper.SubcategoryMapper;
+import com.miaoyu.naigos.api.Theme.mapper.ThemeClassifyMapper;
 import com.miaoyu.naigos.api.Theme.mapper.ThemeMapper;
 import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
+import com.miaoyu.naigos.model.ThemeIdSubcategoryModel;
 import com.miaoyu.naigos.model.ThemeModel;
 import com.miaoyu.naigos.userPermi.GetUserPermiFromDB;
 import com.miaoyu.naigos.userPermi.PermiConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,6 +23,10 @@ public class ThemeUDUService {
     private GetUserPermiFromDB getUserPermiFromDB;
     @Autowired
     private ThemeMapper themeMapper;
+    @Autowired
+    private ThemeClassifyMapper themeClassifyMapper;
+    @Autowired
+    private SubcategoryMapper subcategoryMapper;
 
     public Map<String, Object> uploadThemeService(String uuid, ThemeModel request){
         boolean b = getUserPermiFromDB.utilPermission(uuid, PermiConst.CREATOR);
@@ -63,5 +73,12 @@ public class ThemeUDUService {
         }
         return new ErrorMap().insufficientAccountPermissions();
     }
-
+    public Map<String, Object> getAllClassifySubcategoryService(){
+        List<ThemeClassifyBriefEntity> allThemeClassifyBrief = themeClassifyMapper.getAllThemeClassifyBrief();
+        List<ThemeIdSubcategoryModel> allSubcategory = subcategoryMapper.selectAllSubcategory();
+        Map<String, Object> classifyAndSubcategoryMap = new HashMap<>();
+        classifyAndSubcategoryMap.put("classify_list", allThemeClassifyBrief);
+        classifyAndSubcategoryMap.put("subcategory_list", allSubcategory);
+        return new SuccessMap().standardSuccessMap(classifyAndSubcategoryMap);
+    }
 }
