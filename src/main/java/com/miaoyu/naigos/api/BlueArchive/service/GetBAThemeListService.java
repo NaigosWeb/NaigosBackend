@@ -1,7 +1,7 @@
 package com.miaoyu.naigos.api.BlueArchive.service;
 
-import com.miaoyu.naigos.api.BlueArchive.mapper.BASubcategoryMapper;
 import com.miaoyu.naigos.api.Theme.entity.ThemeBriefEntity;
+import com.miaoyu.naigos.api.Theme.mapper.SubcategoryMapper;
 import com.miaoyu.naigos.api.Theme.mapper.ThemeMapper;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
 import com.miaoyu.naigos.user.service.GetUserArchiveService;
@@ -19,13 +19,13 @@ public class GetBAThemeListService {
     @Autowired
     private GetUserArchiveService getUserArchiveService;
     @Autowired
-    private BASubcategoryMapper baSubcategoryMapper;
+    private SubcategoryMapper subcategoryMapper;
 
     public Map<String, Object> getAllThemeByRecreate(String classifyId) {
         List<ThemeBriefEntity> allEligibleThemeBrief = themeMapper.selectAllEligibleThemeBrief(classifyId);
         List<ThemeBriefEntity> utilEligibleThemeBrief = new ArrayList<>();
         String uuid = getUserArchiveService.getUserArchive(3).getGroup_real_user_id();
-        String categoryValue = baSubcategoryMapper.selectSubcategory("blue_archive").getCategory_value();
+        String categoryValue = subcategoryMapper.selectSubcategory("blue_archive").getCategory_value();
         for (ThemeBriefEntity themeBriefEntity : allEligibleThemeBrief) {
             if (themeBriefEntity.getAuthor().equals(uuid) && themeBriefEntity.getTheme_id().split("_")[1].equals(categoryValue)) {
                 utilEligibleThemeBrief.add(themeBriefEntity);
@@ -36,7 +36,7 @@ public class GetBAThemeListService {
     public Map<String, Object> getAllThemeByRecord(String classifyId) {
         List<ThemeBriefEntity> allEligibleThemeBrief = themeMapper.selectAllEligibleThemeBrief(classifyId);
         List<ThemeBriefEntity> utilEligibleThemeBrief = new ArrayList<>();
-        String categoryValue = baSubcategoryMapper.selectSubcategory("blue_archive").getCategory_value();
+        String categoryValue = subcategoryMapper.selectSubcategory("blue_archive").getCategory_value();
         for (ThemeBriefEntity themeBriefEntity : allEligibleThemeBrief) {
             if (themeBriefEntity.getTheme_id().split("_")[1].equals(categoryValue)) {
                 utilEligibleThemeBrief.add(themeBriefEntity);
