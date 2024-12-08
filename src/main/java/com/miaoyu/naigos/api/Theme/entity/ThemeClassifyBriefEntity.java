@@ -5,6 +5,15 @@ public class ThemeClassifyBriefEntity {
     private String cover_image;
     private String zhsg_name;
     private String router_name;
+    private String classify_value;
+
+    public String getClassify_value() {
+        return classify_value;
+    }
+
+    public void setClassify_value(String classify_value) {
+        this.classify_value = classify_value;
+    }
 
     public String getRouter_name() {
         return router_name;
