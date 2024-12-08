@@ -5,7 +5,7 @@ public class ThemeModel {
     private String url;
     private String introduce;
     private String header_image;
-    private String details_image;
+    private String detail_html;
     private int cost;
     private String eject_image;
     private String theme_id;
@@ -52,12 +52,12 @@ public class ThemeModel {
         this.header_image = header_image;
     }
 
-    public String getDetails_image() {
-        return details_image;
+    public String getDetail_html() {
+        return detail_html;
     }
 
-    public void setDetails_image(String details_image) {
-        this.details_image = details_image;
+    public void setDetail_html(String detail_html) {
+        this.detail_html = detail_html;
     }
 
     public int getCost() {
