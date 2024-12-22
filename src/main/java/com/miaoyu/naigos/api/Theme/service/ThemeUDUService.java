@@ -10,6 +10,7 @@ import com.miaoyu.naigos.model.ThemeIdSubcategoryModel;
 import com.miaoyu.naigos.model.ThemeModel;
 import com.miaoyu.naigos.userPermi.GetUserPermiFromDB;
 import com.miaoyu.naigos.userPermi.PermiConst;
+import com.miaoyu.naigos.utils.GenerateUUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +30,20 @@ public class ThemeUDUService {
     private SubcategoryMapper subcategoryMapper;
 
     public Map<String, Object> uploadThemeService(String uuid, ThemeModel request){
+        System.out.println(request.getHeader_image());
         boolean b = getUserPermiFromDB.utilPermission(uuid, PermiConst.CREATOR);
         if (!b){
             return new ErrorMap().insufficientAccountPermissions();
         }
         request.setAuthor(uuid);
-        boolean bt = themeMapper.insertTheme(request);
-        if (bt){
-            return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
+        GenerateUUID themeUUID = new GenerateUUID(new String[]{request.getAuthor(), request.getName()});
+        request.setTheme_id(request.getTheme_id() + "_" + themeUUID);
+        ThemeModel theme = themeMapper.selectThemeById(request.getTheme_id());
+        if (theme == null){
+            boolean bt = themeMapper.insertTheme(request);
+            if (bt){
+                return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
+            }
         }
         return new ErrorMap().uploadUpdateDeleteErrorMap(0);
     }
