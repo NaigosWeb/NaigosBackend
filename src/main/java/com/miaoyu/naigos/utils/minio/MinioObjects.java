@@ -4,6 +4,7 @@ import com.miaoyu.naigos.utils.HumanFileSize;
 import io.minio.*;
 import io.minio.messages.Item;
 import jakarta.annotation.Resource;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,8 @@ public class MinioObjects {
     @Autowired
     private MinioBuckets minioBuckets;
 
+    private static final Tika tika = new Tika();
+
     public String putObject(String uuid, MultipartFile requestFile) {
         String lowUuid = uuid.toLowerCase();
         String filename = requestFile.getOriginalFilename();
@@ -29,7 +32,7 @@ public class MinioObjects {
             ObjectWriteResponse objectWriteResponse = minioClient.putObject(PutObjectArgs.builder()
                     .bucket(lowUuid)
                     .stream(inputStream, requestFile.getSize(), -1)
-                    .contentType("image/png")
+                    .contentType(tika.detect(requestFile.getInputStream()))
                     .object(filename).build());
             if (objectWriteResponse == null){
                 return null;
