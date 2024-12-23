@@ -1,5 +1,6 @@
 package com.miaoyu.naigos.utils.minio;
 
+import com.miaoyu.naigos.utils.HumanFileSize;
 import io.minio.*;
 import io.minio.messages.Item;
 import jakarta.annotation.Resource;
@@ -51,23 +52,13 @@ public class MinioObjects {
                 Item item = itemResult.get();
                 Map<String, Object> map = new HashMap<>();
                 map.put("url", "https://file.naigos.cn:52011/" + lowUuid + "/" + item.objectName());
-                map.put("size", this.humanFileSize(item.size()));
+                map.put("size", item.size());
+                map.put("size_text", new HumanFileSize().humanFileSize(item.size()));
                 list.add(map);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
         return list;
-    }
-    private String humanFileSize(long orinSize){
-        if (orinSize < 1024){
-            return orinSize + " B";
-        } else if (orinSize < 1048576) {
-            return orinSize / 1024 + " KB";
-        } else if (orinSize < 1073741824) {
-            return orinSize / 1048576 + " MB";
-        } else {
-            return orinSize / 1073741824 + " GB";
-        }
     }
 }

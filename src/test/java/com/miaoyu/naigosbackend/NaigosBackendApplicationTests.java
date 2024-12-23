@@ -118,8 +118,5 @@ class NaigosBackendApplicationTests {
     }
     @Test
     void test11(){
-        File file = new File("C:\\Users\\XilonGz\\Desktop\\bq\\Cache_-6d58077bfcb4a789.jpg");
-        String s = minioObjects.putObject("DC4D81A09FB2728A3C7D028B035652FA", (MultipartFile) file);
-        System.out.println(s);
     }
 }
