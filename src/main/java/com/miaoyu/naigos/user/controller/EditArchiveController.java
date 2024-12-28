@@ -40,4 +40,12 @@ public class EditArchiveController {
         }
         return editArchiveService.editAvatarService(payload.get("data").toString(), file);
     }
+    @GetMapping("/avatar_qq")
+    public Map<String, Object> editAvatarQqControl(@RequestHeader("Authorization") String token){
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int)payload.get("code") == 1){
+            return payload;
+        }
+        return editArchiveService.editAvatarQqService(payload.get("data").toString());
+    }
 }

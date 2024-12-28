@@ -6,6 +6,7 @@ import com.miaoyu.naigos.constantsMap.NormalMap;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.user.mapper.EditArchiveMapper;
+import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
 import com.miaoyu.naigos.utils.minio.MinioObjects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class EditArchiveService {
     private EditArchiveMapper editArchiveMapper;
     @Autowired
     private MinioObjects minioObjects;
+    private GetUserArchiveMapper getUserArchiveMapper;
 
     public Map<String, Object> editArchiveService(String uuid, UserArchiveModel request) {
         UserArchiveModel userArchive = getUserArchiveService.getUserArchive(2, uuid);
@@ -71,6 +73,17 @@ public class EditArchiveService {
             return new ErrorMap().uploadUpdateDeleteErrorMap(0);
         }
         boolean b = editArchiveMapper.editAvatarByUuid(uuid, s);
+        if (b){
+            return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
+        }
+        return new ErrorMap().uploadUpdateDeleteErrorMap(0);
+    }
+    public Map<String, Object> editAvatarQqService(String uuid){
+        UserArchiveModel userArchive = getUserArchiveService.getUserArchive(2, uuid);
+        if (userArchive == null) {
+            return new ErrorMap().noSuchArchive();
+        }
+        boolean b = editArchiveMapper.editAvatarByUuid(uuid, "https://q1.qlogo.cn/g?b=qq&nk=" + userArchive.getQq_id().toString() + "&s=640");
         if (b){
             return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
         }
