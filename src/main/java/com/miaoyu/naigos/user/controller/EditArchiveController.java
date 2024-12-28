@@ -6,6 +6,7 @@ import com.miaoyu.naigos.user.service.EditArchiveService;
 import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -27,5 +28,16 @@ public class EditArchiveController {
             return payload;
         }
         return editArchiveService.editArchiveService((String) payload.get("data"), request);
+    }
+    @PostMapping("/avatar")
+    public Map<String, Object> editAvatarControl(
+            @RequestParam("file") MultipartFile file,
+            @RequestHeader("Authorization") String token
+    ){
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int)payload.get("code") == 1){
+            return payload;
+        }
+        return editArchiveService.editAvatarService(payload.get("data").toString(), file);
     }
 }

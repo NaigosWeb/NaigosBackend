@@ -3,10 +3,13 @@ package com.miaoyu.naigos.user.service;
 import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.NoLoginMap;
 import com.miaoyu.naigos.constantsMap.NormalMap;
+import com.miaoyu.naigos.constantsMap.SuccessMap;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.user.mapper.EditArchiveMapper;
+import com.miaoyu.naigos.utils.minio.MinioObjects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 import java.util.Objects;
@@ -17,6 +20,8 @@ public class EditArchiveService {
     private GetUserArchiveService getUserArchiveService;
     @Autowired
     private EditArchiveMapper editArchiveMapper;
+    @Autowired
+    private MinioObjects minioObjects;
 
     public Map<String, Object> editArchiveService(String uuid, UserArchiveModel request) {
         UserArchiveModel userArchive = getUserArchiveService.getUserArchive(2, uuid);
@@ -54,5 +59,21 @@ public class EditArchiveService {
             return new NormalMap().normalSuccessMap("修改成功！");
         }
         return new ErrorMap().errorMap("修改失败！");
+    }
+
+    public Map<String, Object> editAvatarService(String uuid, MultipartFile file) {
+        UserArchiveModel userArchive = getUserArchiveService.getUserArchive(2, uuid);
+        if (userArchive == null) {
+            return new ErrorMap().noSuchArchive();
+        }
+        String s = minioObjects.putObject("avatar", file);
+        if (s == null) {
+            return new ErrorMap().uploadUpdateDeleteErrorMap(0);
+        }
+        boolean b = editArchiveMapper.editAvatarByUuid(uuid, s);
+        if (b){
+            return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
+        }
+        return new ErrorMap().uploadUpdateDeleteErrorMap(0);
     }
 }

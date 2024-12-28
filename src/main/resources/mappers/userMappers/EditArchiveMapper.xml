@@ -4,4 +4,7 @@
     <update id="editArchiveByUuid" parameterType="com.miaoyu.naigos.model.UserArchiveModel">
         UPDATE users_users SET nickname = #{nickname}, email = #{email}, qq_id = #{qqId}, city = #{city} WHERE group_real_user_id = #{uuid}
     </update>
+    <update id="editAvatarByUuid" parameterType="com.miaoyu.naigos.model.UserArchiveModel">
+        UPDATE users_users SET avatar = #{avatar} WHERE group_real_user_id = #{uuid}
+    </update>
 </mapper>

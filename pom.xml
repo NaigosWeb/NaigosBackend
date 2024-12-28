@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.1.12neo.3</version>
+    <version>0.2.1</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        When the Theme upload, the service auto generate a new uuid to split in theme_id.
+        Upload user avatar.
     </description>
     <url/>
     <licenses>
