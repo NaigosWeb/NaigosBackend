@@ -31,6 +31,8 @@ public class UserSignInAndUpService {
     private JwtSigned jwtSigned;
     @Autowired
     private GetUserArchiveMapper getUserArchiveMapper;
+    @Autowired
+    private EditArchiveService editArchiveService;
 
     /**
     * 处理账号是否存在数据库且密码是否正确
@@ -152,6 +154,10 @@ public class UserSignInAndUpService {
             if (!userPasswordRecodeWithPassword) {
                 return new NormalMap().normalSuccessMap("注册成功！但密码写入失败，这是严重问题，请寻找站长！");
             } else {
+                Map<String, Object> payload = editArchiveService.editAvatarQqService(uuid);
+                if ((int) payload.get("code") == 1){
+                    return new NormalMap().normalSuccessMap("注册成功！但头像写入失败…");
+                }
                 String token = jwtSigned.jwtSigned("web", uuid);
                 Map<String, Object> result = new HashMap<>();
                 result.put("token", token);
