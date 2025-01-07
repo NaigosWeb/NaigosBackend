@@ -37,7 +37,7 @@ public class ThemeUDUService {
         }
         request.setAuthor(uuid);
         GenerateUUID themeUUID = new GenerateUUID(new String[]{request.getAuthor(), request.getName()});
-        request.setTheme_id(request.getTheme_id() + "_" + themeUUID);
+        request.setTheme_id(request.getTheme_id() + "_" + themeUUID.getUuid());
         ThemeModel theme = themeMapper.selectThemeById(request.getTheme_id());
         if (theme == null){
             boolean bt = themeMapper.insertTheme(request);
