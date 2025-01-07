@@ -25,7 +25,7 @@ public class MinioObjects {
     private static final Tika tika = new Tika();
 
     public String putObject(String uuid, MultipartFile requestFile) {
-        String lowUuid = uuid.toLowerCase();
+        String lowUuid = uuid.toLowerCase().replace("-", "");
         String filename = requestFile.getOriginalFilename();
         try {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(requestFile.getBytes());
@@ -43,7 +43,7 @@ public class MinioObjects {
         }
     }
     public List<Map<String, Object>> getObjectList(String uuid) {
-        String lowUuid = uuid.toLowerCase();
+        String lowUuid = uuid.toLowerCase().replace("-", "");
         if (!minioBuckets.isBucket(lowUuid)) {
             return null;
         }

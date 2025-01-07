@@ -15,7 +15,7 @@ public class MinioBuckets {
     private MinioClient minioClient;
 
     public boolean isBucket(String uuid) {
-        String lowUuid = uuid.toLowerCase();
+        String lowUuid = uuid.toLowerCase().replace("-", "");
         try{
             return minioClient.bucketExists(BucketExistsArgs.builder()
                     .bucket(lowUuid).build());
@@ -28,7 +28,7 @@ public class MinioBuckets {
      * @param uuid 用户UUID，不分大小写
      * @return Map isBucket是否存在，isNew是否是新建*/
     public Map<String, Object> isBucketOrCreate(String uuid) {
-        String lowUuid = uuid.toLowerCase();
+        String lowUuid = uuid.toLowerCase().replace("-", "");
         Map<String, Object> result = new HashMap<>();
         try{
             boolean b = minioClient.bucketExists(BucketExistsArgs.builder().bucket(lowUuid).build());
@@ -55,7 +55,7 @@ public class MinioBuckets {
         }
     }
     public boolean removeBucket(String uuid) {
-        String lowUuid = uuid.toLowerCase();
+        String lowUuid = uuid.toLowerCase().replace("-", "");
         try {
             minioClient.removeBucket(RemoveBucketArgs.builder().bucket(lowUuid).build());
             return true;
