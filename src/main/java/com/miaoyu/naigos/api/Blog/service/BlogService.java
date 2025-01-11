@@ -2,13 +2,16 @@ package com.miaoyu.naigos.api.Blog.service;
 
 import com.miaoyu.naigos.api.Blog.entity.BlogBriefEntity;
 import com.miaoyu.naigos.api.Blog.mapper.BlogMapper;
+import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
+import com.miaoyu.naigos.model.BlogModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class BlogService {
@@ -20,46 +23,27 @@ public class BlogService {
     }
     public Map<String, Object> getAllBlogEligibleBriefService(String label, String keyword, String uuid) {
         List<BlogBriefEntity> allBlogBrief = blogMapper.selectAllBrief();
-        List<BlogBriefEntity> handleLabelBlogBrief = new ArrayList<>();
-        if (label != null) {
-            String[] labelArray = label.split("#");
-            for (BlogBriefEntity blogBriefEntity : allBlogBrief) {
-                String[] blogLabelArray = blogBriefEntity.getLabel().split("#");
-                for (String blogLabelFor : blogLabelArray) {
-                    for (String labelFor : labelArray) {
-                        if (blogLabelFor.equals(labelFor)) {
-                            handleLabelBlogBrief.add(blogBriefEntity);
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            handleLabelBlogBrief = allBlogBrief;
-        }
-        List<BlogBriefEntity> handleKeywordBlogBrief = new ArrayList<>();
-        if (keyword != null) {
+        List<BlogBriefEntity> filteredBlogBrief;
+        if (keyword != null && !keyword.isEmpty()) {
             String[] keywordArray = keyword.split("#");
-            for (BlogBriefEntity blogBriefEntity : handleLabelBlogBrief) {
-                for (String keywordFor : keywordArray) {
-                    if (blogBriefEntity.getName().contains(keywordFor)) {
-                        handleKeywordBlogBrief.add(blogBriefEntity);
-                    }
-                }
-            }
+            filteredBlogBrief = allBlogBrief.stream()
+                    .filter(blog -> Arrays.stream(keywordArray).anyMatch(blog.getName()::contains))
+                    .collect(Collectors.toList());
         } else {
-            handleKeywordBlogBrief = handleLabelBlogBrief;
+            filteredBlogBrief = allBlogBrief;
         }
-        List<BlogBriefEntity> handleUuidBlogBrief = new ArrayList<>();
-        if (uuid != null) {
-            for (BlogBriefEntity blogBriefEntity : handleKeywordBlogBrief) {
-                if (blogBriefEntity.getAuthor().equals(uuid)) {
-                    handleUuidBlogBrief.add(blogBriefEntity);
-                }
-            }
-        } else {
-            handleUuidBlogBrief = handleKeywordBlogBrief;
+        if (uuid != null && !uuid.isEmpty()) {
+            filteredBlogBrief = filteredBlogBrief.stream()
+                    .filter(blog -> blog.getAuthor().equals(uuid))
+                    .collect(Collectors.toList());
         }
-        return new SuccessMap().standardSuccessMap(handleUuidBlogBrief);
+        return new SuccessMap().standardSuccessMap(filteredBlogBrief);
+    }
+    public Map<String, Object> getBlogOnlyService(String blogId) {
+        BlogModel blog = blogMapper.selectBlogById(blogId);
+        if (blog == null) {
+            return new ErrorMap().resourceNotExist();
+        }
+        return new SuccessMap().standardSuccessMap(blog);
     }
 }

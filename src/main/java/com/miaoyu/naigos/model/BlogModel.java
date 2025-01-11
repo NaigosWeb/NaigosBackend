@@ -10,6 +10,24 @@ public class BlogModel {
     private String attachment;
     private String classify_id;
     private String blog_id;
+    private String cover_image;
+    private String bg_image;
+
+    public String getCover_image() {
+        return cover_image;
+    }
+
+    public void setCover_image(String cover_image) {
+        this.cover_image = cover_image;
+    }
+
+    public String getBg_image() {
+        return bg_image;
+    }
+
+    public void setBg_image(String bg_image) {
+        this.bg_image = bg_image;
+    }
 
     public String getBlog_id() {
         return blog_id;

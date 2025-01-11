@@ -30,7 +30,6 @@ public class ThemeUDUService {
     private SubcategoryMapper subcategoryMapper;
 
     public Map<String, Object> uploadThemeService(String uuid, ThemeModel request){
-        System.out.println(request.getHeader_image());
         boolean b = getUserPermiFromDB.utilPermission(uuid, PermiConst.CREATOR);
         if (!b){
             return new ErrorMap().insufficientAccountPermissions();
