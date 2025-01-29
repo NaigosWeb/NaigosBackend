@@ -23,6 +23,15 @@ public class BlogController {
     public Map<String, Object> getAllBlogBriefControl() {
         return blogService.getAllBriefService();
     }
+    @GetMapping("/new_brief")
+    public Map<String, Object> getNewBlogBriefControl(
+            @RequestParam(value = "limit", required = false) Integer limit
+    ) {
+        if (limit == null) {
+            limit = 10;
+        }
+        return blogService.getNewBlogBriefService(limit);
+    }
     @GetMapping("/eligible_brief")
     public Map<String, Object> getAllBlogEligibleBriefControl(
             @RequestParam(value = "label", required = false) String label,

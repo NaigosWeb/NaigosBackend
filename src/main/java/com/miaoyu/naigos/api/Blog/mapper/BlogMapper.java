@@ -12,4 +12,6 @@ public interface BlogMapper {
     List<BlogBriefEntity> selectAllBrief();
     @Select("SELECT * FROM api_blog WHERE blog_id = #{blog_id}")
     BlogModel selectBlogById(@Param("blog_id") String blogId);
+    @Select("SELECT * FROM api_blog ORDER BY last_date DESC LIMIT #{limit}")
+    List<BlogBriefEntity> selectNewBlogByLimit(@Param("limit") Integer limit);
 }

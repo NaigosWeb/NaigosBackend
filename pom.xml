@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.2</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Blog about api.
+        Get server time api.
     </description>
     <url/>
     <licenses>

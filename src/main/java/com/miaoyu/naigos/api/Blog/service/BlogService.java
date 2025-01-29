@@ -21,6 +21,13 @@ public class BlogService {
     public Map<String, Object> getAllBriefService() {
         return new SuccessMap().standardSuccessMap(blogMapper.selectAllBrief());
     }
+    public Map<String, Object> getNewBlogBriefService(Integer limit) {
+        List<BlogBriefEntity> blogBriefEntities = blogMapper.selectNewBlogByLimit(limit);
+        if (blogBriefEntities == null || blogBriefEntities.isEmpty()) {
+            return new ErrorMap().resourceNotExist();
+        }
+        return new SuccessMap().standardSuccessMap(blogBriefEntities);
+    }
     public Map<String, Object> getAllBlogEligibleBriefService(String label, String keyword, String uuid) {
         List<BlogBriefEntity> allBlogBrief = blogMapper.selectAllBrief();
         List<BlogBriefEntity> filteredBlogBrief;
