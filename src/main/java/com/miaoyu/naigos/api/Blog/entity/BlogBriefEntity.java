@@ -4,10 +4,28 @@ public class BlogBriefEntity {
     private String name;
     private String label;
     private String cover_image;
+    private String cover_image_800;
+    private String cover_image_1200;
     private String author;
     private long last_date;
     private String classify_id;
     private String blog_id;
+
+    public String getCover_image_800() {
+        return cover_image_800;
+    }
+
+    public void setCover_image_800(String cover_image_800) {
+        this.cover_image_800 = cover_image_800;
+    }
+
+    public String getCover_image_1200() {
+        return cover_image_1200;
+    }
+
+    public void setCover_image_1200(String cover_image_1200) {
+        this.cover_image_1200 = cover_image_1200;
+    }
 
     public String getLabel() {
         return label;
