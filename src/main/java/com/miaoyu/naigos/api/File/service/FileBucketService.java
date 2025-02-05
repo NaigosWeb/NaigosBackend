@@ -32,11 +32,17 @@ public class FileBucketService {
             size += (long)object.get("size");
         }
         Map<String, Object> result = new HashMap<>();
+        if (maxStorage == -1) {
+            result.put("max_size", maxStorage);
+            result.put("max_size_text", "无限制");
+        } else {
+            result.put("max_size", maxStorage);
+            result.put("max_size_text", new HumanFileSize().humanFileSize(maxStorage));
+        }
         result.put("bucket", uuid.toLowerCase());
         result.put("size", size);
         result.put("size_text", new HumanFileSize().humanFileSize(size));
-        result.put("max_size", maxStorage);
-        result.put("max_size_text", new HumanFileSize().humanFileSize(maxStorage));
+
         return new SuccessMap().standardSuccessMap(result);
     }
 }
