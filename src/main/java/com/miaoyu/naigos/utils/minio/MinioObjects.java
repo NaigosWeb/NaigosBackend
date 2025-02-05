@@ -57,6 +57,7 @@ public class MinioObjects {
                 map.put("url", "https://file.naigos.cn:52011/" + lowUuid + "/" + item.objectName());
                 map.put("size", item.size());
                 map.put("size_text", new HumanFileSize().humanFileSize(item.size()));
+                map.put("name", item.objectName());
                 list.add(map);
             } catch (Exception e) {
                 System.out.println(e.getMessage());

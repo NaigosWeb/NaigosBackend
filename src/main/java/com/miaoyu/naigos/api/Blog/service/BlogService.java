@@ -57,18 +57,18 @@ public class BlogService {
         if (blog == null) {
             return new ErrorMap().resourceNotExist();
         }
-        List<BlogCommentEntity> blogComments = blogCommentMapper.selectCommentByBlogId(blogId);
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (BlogCommentEntity blogComment : blogComments) {
-            List<BlogCommentReplyEntity> replies = blogCommentReplyMapper.selectByCommentId(blogComment.getComment_id());
-            Map<String, Object> resultCommentAndReply = new HashMap<>();
-            resultCommentAndReply.put("replies", replies);
-            resultCommentAndReply.put("commend", blogComment);
-            list.add(resultCommentAndReply);
-        }
-        Map<String, Object> result = new HashMap<>();
-        result.put("comments", list);
-        result.put("blog", blog);
-        return new SuccessMap().standardSuccessMap(result);
+//        List<BlogCommentEntity> blogComments = blogCommentMapper.selectCommentByBlogId(blogId);
+//        List<Map<String, Object>> list = new ArrayList<>();
+//        for (BlogCommentEntity blogComment : blogComments) {
+//            List<BlogCommentReplyEntity> replies = blogCommentReplyMapper.selectByCommentId(blogComment.getComment_id());
+//            Map<String, Object> resultCommentAndReply = new HashMap<>();
+//            resultCommentAndReply.put("replies", replies);
+//            resultCommentAndReply.put("commend", blogComment);
+//            list.add(resultCommentAndReply);
+//        }
+//        Map<String, Object> result = new HashMap<>();
+//        result.put("comments", list);
+//        result.put("blog", blog);
+        return new SuccessMap().standardSuccessMap(blog);
     }
 }
