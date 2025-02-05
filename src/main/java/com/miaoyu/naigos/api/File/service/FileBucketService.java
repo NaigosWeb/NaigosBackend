@@ -18,12 +18,15 @@ public class FileBucketService {
     private MinioBuckets minioBuckets;
     @Autowired
     private MinioObjects minioObjects;
+    @Autowired
+    private FileMaxStorage fileMaxStorage;
 
     public Map<String, Object> getBucketService(String uuid){
         List<Map<String, Object>> objectList = minioObjects.getObjectList(uuid);
         if (objectList == null) {
             return new ErrorMap().resourceNotExist();
         }
+        long maxStorage = fileMaxStorage.getUserFileMaxStorage(uuid);
         long size = 0;
         for (Map<String, Object> object : objectList) {
             size += (long)object.get("size");
@@ -32,6 +35,8 @@ public class FileBucketService {
         result.put("bucket", uuid.toLowerCase());
         result.put("size", size);
         result.put("size_text", new HumanFileSize().humanFileSize(size));
+        result.put("max_size", maxStorage);
+        result.put("max_size_text", new HumanFileSize().humanFileSize(maxStorage));
         return new SuccessMap().standardSuccessMap(result);
     }
 }
