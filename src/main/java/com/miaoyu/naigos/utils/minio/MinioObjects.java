@@ -65,4 +65,17 @@ public class MinioObjects {
         });
         return list;
     }
+    public void deleteObject(String uuid, String objectName) {
+        String lowUuid = uuid.toLowerCase().replace("-", "");
+        if (!minioBuckets.isBucket(lowUuid)) {
+            return;
+        }
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(lowUuid)
+                    .object(objectName).build());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
