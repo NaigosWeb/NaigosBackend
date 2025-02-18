@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.6neo</version>
+    <version>0.3.7</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Get user files max storage methods neo (limit).
+        Edit user password api.
     </description>
     <url/>
     <licenses>

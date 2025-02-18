@@ -2,6 +2,7 @@ package com.miaoyu.naigos.user.service;
 
 import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.NormalMap;
+import com.miaoyu.naigos.constantsMap.SuccessMap;
 import com.miaoyu.naigos.jwtHandle.JwtSigned;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.model.UserPasswordModel;
@@ -169,6 +170,31 @@ public class UserSignInAndUpService {
         }
     }
 
+    public Map<String, Object> editPasswordService(String uuid, String originPassword, String newPassword) {
+        UserPasswordModel userPasswordModel = getUserPasswordMapper.getUserPasswordTable(uuid);
+        String newPwdHash = passwordHash(newPassword);
+        if (newPwdHash == null) {
+            return new ErrorMap().uploadUpdateDeleteErrorMap(1);
+        }
+        if (userPasswordModel != null){
+            if (userPasswordModel.getPassword() != null) {
+                String originPwdHash = passwordHash(originPassword);
+                if (originPwdHash == null || !originPwdHash.equals(userPasswordModel.getPassword())) {
+                    return new ErrorMap().errorMap("原密码不匹配！");
+                }
+            }
+            boolean b = getUserPasswordMapper.updateUserPassword(uuid, newPwdHash);
+            if (b) {
+                return new SuccessMap().uploadUpdateDeleteSuccessMap(1);
+            }
+        } else {
+            boolean b = getUserPasswordMapper.insertUserPassword(uuid, newPwdHash);
+            if (b) {
+                return new SuccessMap().uploadUpdateDeleteSuccessMap(1);
+            }
+        }
+        return new ErrorMap().uploadUpdateDeleteErrorMap(1);
+    }
     // 私有 根据邮箱地址和时间戳计算UUID
     private String generateUuid(String email){
         try {

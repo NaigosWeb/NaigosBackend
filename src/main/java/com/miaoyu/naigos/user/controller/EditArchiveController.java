@@ -3,6 +3,7 @@ package com.miaoyu.naigos.user.controller;
 import com.miaoyu.naigos.constantsMap.NormalMap;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.user.service.EditArchiveService;
+import com.miaoyu.naigos.user.service.UserSignInAndUpService;
 import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ public class EditArchiveController {
     private NeedTokenUtil needTokenUtil;
     @Autowired
     private EditArchiveService editArchiveService;
+    @Autowired
+    private UserSignInAndUpService userSignInAndUpService;
 
     @PutMapping("/web")
     public Map<String, Object> editArchiveController(
@@ -47,5 +50,17 @@ public class EditArchiveController {
             return payload;
         }
         return editArchiveService.editAvatarQqService(payload.get("data").toString());
+    }
+    @PostMapping("/password")
+    public Map<String, Object> editPasswordControl(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("origin_password") String originPassword,
+            @RequestParam("new_password") String newPassword
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int)payload.get("code") == 1){
+            return payload;
+        }
+        return userSignInAndUpService.editPasswordService(payload.get("data").toString(), originPassword, newPassword);
     }
 }
