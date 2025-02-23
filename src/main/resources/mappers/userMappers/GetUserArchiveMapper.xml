@@ -18,7 +18,7 @@
         SELECT * FROM user_permission WHERE uuid = #{uuid}
     </select>
     <update id="updateUserArchiveByUuid" parameterType="com.miaoyu.naigos.model.UserArchiveModel">
-        UPDATE users_users SET qq_id = #{qqId}, nickname = #{nickname}, city = #{city}, score = #{score}, favorite = #{favorite}, avatar = #{avatar} WHERE group_real_user_id = #{uuid}
+        UPDATE users_users SET qq_id = #{qqId}, nickname = #{nickname}, city = #{city}, score = #{score}, favorite = #{favorite} WHERE group_real_user_id = #{uuid}
     </update>
     <insert id="webRegisterUserArchiveByEmail" parameterType="com.miaoyu.naigos.model.UserArchiveModel">
         INSERT INTO users_users (qq_id, group_real_user_id, nickname, city, score, favorite, avatar, email, safe_level) VALUES (#{qqId}, #{uuid}, #{nickname}, 'unknown', 0, 50, 'https://naigos.cn/images/avatar/default_avatar.jpg', #{email}, 10)

@@ -20,6 +20,8 @@ public class TransArchiveService {
     private TransArchiveMapper transArchiveMapper;
     @Autowired
     private GetUserArchiveMapper getUserArchiveMapper;
+    @Autowired
+    private EditArchiveService editArchiveService;
 
     public Map<String, Object> transArchiveService(String uuid) {
         UserArchiveModel userArchive = getUserArchiveService.getUserArchive(2, uuid);
@@ -54,8 +56,8 @@ public class TransArchiveService {
                 oldArchive.getCity(),
                 userArchive.getScore() + oldArchive.getScore(),
                 userArchive.getFavorite() + oldArchive.getFavorite(),
-                oldArchive.getAvatar(),
                 uuid);
+        editArchiveService.editAvatarQqService(uuid);
         if (isUpdateArchive) {
             return new NormalMap().normalSuccessMap("档案转移成功！");
         } else {

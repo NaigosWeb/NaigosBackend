@@ -15,7 +15,6 @@ public interface GetUserArchiveMapper {
                                     String city,
                                     Integer score,
                                     Integer favorite,
-                                    String avatar,
                                     String uuid);
     boolean webRegisterUserArchiveByEmail(String email,
                                           String nickname,

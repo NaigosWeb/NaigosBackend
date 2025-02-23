@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.7</version>
+    <version>0.3.8</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Edit user password api.
+        Fix transform user archive can not edit avatar to error.
     </description>
     <url/>
     <licenses>
