@@ -32,7 +32,17 @@ public class BlogCommentService {
         }
         return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
     }
-
+    public Map<String, Object> uploadBlogCommentReplyService(String uuid, BlogCommentReplyEntity request){
+        String reply_id = System.currentTimeMillis() + "_" + uuid + "_" + request.getComment_id();
+        request.setReply_id(reply_id);
+        request.setAuthor(uuid);
+        request.setUpload_time(System.currentTimeMillis());
+        boolean b = blogCommentReplyMapper.insertReply(request);
+        if (!b) {
+            return new ErrorMap().uploadUpdateDeleteErrorMap(0);
+        }
+        return new SuccessMap().uploadUpdateDeleteSuccessMap(0);
+    }
     public Map<String, Object> getBlogCommentByAuthorService(String uuid){
         return new SuccessMap().standardSuccessMap(blogCommentMapper.selectCommentByAuthor(uuid));
     }

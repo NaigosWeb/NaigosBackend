@@ -1,6 +1,7 @@
 package com.miaoyu.naigos.api.Blog.controller;
 
 import com.miaoyu.naigos.api.Blog.entity.BlogCommentEntity;
+import com.miaoyu.naigos.api.Blog.entity.BlogCommentReplyEntity;
 import com.miaoyu.naigos.api.Blog.service.BlogCommentService;
 import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,17 @@ public class BlogCommentController {
             return payload;
         }
         return blogCommentService.uploadBlogCommentService(payload.get("data").toString(), request);
+    }
+    @PostMapping("/upload_reply")
+    public Map<String, Object> uploadBlogCommentReplyControl(
+            @RequestHeader("Authorization") String token,
+            @RequestBody BlogCommentReplyEntity request
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int) payload.get("code") == 1){
+            return payload;
+        }
+        return blogCommentService.uploadBlogCommentReplyService(payload.get("data").toString(), request);
     }
     @GetMapping("/get")
     public Map<String, Object> getBlogCommentControl(
