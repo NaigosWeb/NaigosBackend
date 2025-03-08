@@ -46,4 +46,17 @@ public class FileController {
                 fileService.getObjectsListService(payload.get("data").toString())
         );
     }
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Object>> deleteObjectControl(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("object_name") String objectName
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");
+        if ((int) payload.get("code") == 1){
+            return ResponseEntity.status(HttpStatus.OK).body(payload);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                fileService.deleteObject(payload.get("data").toString(), objectName)
+        );
+    }
 }

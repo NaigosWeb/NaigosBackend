@@ -42,4 +42,9 @@ public class FileService {
         }
         return new SuccessMap().standardSuccessMap(objectList);
     }
+
+    public Map<String, Object> deleteObject(String uuid, String objectName) {
+        minioObjects.deleteObject(uuid, objectName);
+        return new SuccessMap().standardSuccessMap(0);
+    }
 }

@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.9neo1</version>
+    <version>0.3.10</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Fix Upload theme by theme_id about.
+        Delete minio object api.
     </description>
     <url/>
     <licenses>
