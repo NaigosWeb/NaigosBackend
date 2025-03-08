@@ -54,7 +54,7 @@ public class EditArchiveController {
     @PostMapping("/password")
     public Map<String, Object> editPasswordControl(
             @RequestHeader("Authorization") String token,
-            @RequestParam("origin_password") String originPassword,
+            @RequestParam(value = "origin_password", required = false) String originPassword,
             @RequestParam("new_password") String newPassword
     ) {
         Map<String, Object> payload = needTokenUtil.tokenUtil(token, "web");

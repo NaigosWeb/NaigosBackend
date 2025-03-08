@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.10</version>
+    <version>0.3.11</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Delete minio object api.
+        Change edit user archive password at origin_password required.
     </description>
     <url/>
     <licenses>
