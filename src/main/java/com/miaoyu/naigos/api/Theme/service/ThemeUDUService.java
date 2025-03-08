@@ -36,7 +36,14 @@ public class ThemeUDUService {
         }
         request.setAuthor(uuid);
         GenerateUUID themeUUID = new GenerateUUID(new String[]{request.getAuthor(), request.getName()});
-        request.setTheme_id(request.getTheme_id() + "_" + themeUUID.getUuid());
+        String[] themeSplit = request.getTheme_id().split("_");
+        if (themeSplit.length <= 2){
+            request.setTheme_id(request.getTheme_id() + "_" + themeUUID.getUuid());
+        }
+        int i = themeMapper.selectThemeCountById(request.getTheme_id());
+        if (i > 0){
+            return new ErrorMap().errorMap("ID已存在，请更换ID号！");
+        }
         ThemeModel theme = themeMapper.selectThemeById(request.getTheme_id());
         if (theme == null){
             boolean bt = themeMapper.insertTheme(request);

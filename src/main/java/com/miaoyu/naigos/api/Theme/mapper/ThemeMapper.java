@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface ThemeMapper {
+    @Select("SELECT COUNT(*) FROM api_theme WHERE theme_id = #{theme_id}")
+    int selectThemeCountById(@Param("theme_id") String theme_id);
+
     @Select("SELECT * FROM api_theme")
     List<ThemeBriefEntity> selectAllThemeBrief();
 
