@@ -47,9 +47,7 @@ public class ThemeService {
         if (classifyId.isEmpty()){
             return new SuccessMap().standardSuccessMap(themeMapper.selectAllNullThemeBrief());
         }
-        if (Objects.equals(classifyId, "sogou_input_theme")){
-            return new SuccessMap().standardSuccessMap(getSgService.findAllBriefSg().get("data"));
-        }
+        //            return new SuccessMap().standardSuccessMap(getSgService.findAllBriefSg().get("data"));
         return new SuccessMap().standardSuccessMap(themeMapper.selectAllEligibleThemeBrief(classifyId));
     }
     public Map<String, Object> getEligibleThemeService(String themeId) {
