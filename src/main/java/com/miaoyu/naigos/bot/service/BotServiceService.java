@@ -5,6 +5,7 @@ import com.miaoyu.naigos.constantsMap.ErrorMap;
 import com.miaoyu.naigos.constantsMap.SuccessMap;
 import com.miaoyu.naigos.model.UserArchiveModel;
 import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
+import com.miaoyu.naigos.user.service.UserCheckinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class BotServiceService {
     private GetUserArchiveMapper getUserArchiveMapper;
     @Autowired
     private BotServiceMapper botServiceMapper;
+    @Autowired
+    private UserCheckinService userCheckinService;
 
     public Map<String, Object> botServiceRegisterService(String uuid, long qqId) {
         UserArchiveModel userArchiveByUuid = getUserArchiveMapper.getUserArchiveByUuid(uuid);
@@ -41,5 +44,20 @@ public class BotServiceService {
             return new ErrorMap().errorMap("注册失败！");
         }
         return new SuccessMap().standardSuccessMap("注册成功！");
+    }
+
+    public Map<String, Object> botServiceCheckInService(String uuid) {
+        UserArchiveModel userArchive = getUserArchiveMapper.getUserArchiveByUuid(uuid);
+        if (userArchive == null) {
+            return new ErrorMap().noSuchArchive();
+        }
+        return userCheckinService.webCheckinService(uuid);
+    }
+    public Map<String, Object> botServiceCurrentService(String uuid) {
+        UserArchiveModel userArchive = getUserArchiveMapper.getUserArchiveByUuid(uuid);
+        if (userArchive == null) {
+            return new ErrorMap().noSuchArchive();
+        }
+        return new SuccessMap().standardSuccessMap(userArchive);
     }
 }

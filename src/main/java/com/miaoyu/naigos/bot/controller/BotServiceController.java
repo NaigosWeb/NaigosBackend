@@ -28,4 +28,27 @@ public class BotServiceController {
         }
         return ResponseEntity.ok(botServiceService.botServiceRegisterService(uuid, qqId));
     }
+
+    @GetMapping("/check_in")
+    public ResponseEntity<Map<String, Object>> botServiceCheckInControl(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("uuid") String uuid
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "bot");
+        if ((int) payload.get("code") == 1) {
+            return ResponseEntity.ok(payload);
+        }
+        return ResponseEntity.ok(botServiceService.botServiceCheckInService(uuid));
+    }
+    @GetMapping("/current")
+    public ResponseEntity<Map<String, Object>> botServiceCurrentControl(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("uuid") String uuid
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "bot");
+        if ((int) payload.get("code") == 1) {
+            return ResponseEntity.ok(payload);
+        }
+        return ResponseEntity.ok(botServiceService.botServiceCurrentService(uuid));
+    }
 }
