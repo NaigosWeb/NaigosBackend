@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.12</version>
+    <version>0.3.13</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Fix theme classify select.
+        Add bot service by register.
     </description>
     <url/>
     <licenses>

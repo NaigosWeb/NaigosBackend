@@ -34,6 +34,15 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 fileService.uploadFileByUuidService(payload.get("data").toString(), file));
     }
+    @PostMapping("/upload_by_bucket")
+    public ResponseEntity<Map<String, Object>> uploadFileByBucketControl(
+            @RequestParam("bucket_name") String bucketName,
+            @RequestParam("file") MultipartFile file
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                fileService.uploadFileByUuidService(bucketName, file)
+        );
+    }
     @GetMapping("/objects")
     public ResponseEntity<Map<String, Object>> getObjectsListControl(
             @RequestHeader("Authorization") String token
