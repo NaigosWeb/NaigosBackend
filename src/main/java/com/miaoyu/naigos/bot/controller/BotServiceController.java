@@ -51,4 +51,16 @@ public class BotServiceController {
         }
         return ResponseEntity.ok(botServiceService.botServiceCurrentService(uuid));
     }
+    @GetMapping("/nopwd_login")
+    public ResponseEntity<Map<String, Object>> botServiceNopwdLoginControl(
+            @RequestHeader("Authorization") String token,
+            @RequestParam("uuid") String uuid,
+            @RequestParam("code") String code
+    ) {
+        Map<String, Object> payload = needTokenUtil.tokenUtil(token, "bot");
+        if ((int) payload.get("code") == 1) {
+            return ResponseEntity.ok(payload);
+        }
+        return ResponseEntity.ok(botServiceService.botServiceNopwdLoginService(uuid, code));
+    }
 }

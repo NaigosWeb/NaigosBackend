@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.3.14</version>
+    <version>0.3.15</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Add bot service function on check in and current.
+        Add bot service function on no password login user archive.
     </description>
     <url/>
     <licenses>
