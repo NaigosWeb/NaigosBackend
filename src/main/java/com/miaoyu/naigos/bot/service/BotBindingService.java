@@ -70,7 +70,12 @@ public class BotBindingService {
         }
         boolean b1 = botBindingMapper.updateRemoveCodeByGroupUuid(uuid);
         if (!b1) {
-            return new ErrorMap().errorMap("服务器解除锁定验证状态失败！");
+            return new ErrorMap().errorMap("服务器解除锁定验证状态失败！b1:err");
+        }
+        UserExchangeUuidModel userExchange = botBindingMapper.selectUserExchangeUuidByGroupUuid(uuid);
+        boolean b2 = botBindingMapper.updateIsBotMemoryByWebUuid(userExchange.getWeb_uuid());
+        if (!b2) {
+            return new ErrorMap().errorMap("服务器解除锁定验证状态失败！b2:err");
         }
         return new SuccessMap().standardSuccessMap("验证码匹配并绑定！");
     }

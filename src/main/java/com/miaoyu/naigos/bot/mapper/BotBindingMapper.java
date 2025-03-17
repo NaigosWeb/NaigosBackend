@@ -22,4 +22,6 @@ public interface BotBindingMapper {
     boolean updateUserCodeByWebUuid(@Param("web_uuid") String web_uuid, @Param("code") String code);
     @Update("UPDATE users_exchange_uuid SET code = null, is_code = false, expiration = null WHERE group_uuid = #{group_uuid}")
     boolean updateRemoveCodeByGroupUuid(@Param("group_uuid") String group_uuid);
+    @Update("UPDATE users_users SET is_bot_memory = true WHERE group_real_user_id = #{web_uuid}")
+    boolean updateIsBotMemoryByWebUuid(@Param("web_uuid") String web_uuid);
 }
