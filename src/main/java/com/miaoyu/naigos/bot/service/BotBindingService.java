@@ -39,7 +39,7 @@ public class BotBindingService {
         // 存在转换记录
         if (exchangeByWeb != null) {
             // 已转换
-            if (!exchangeByWeb.getGroup_uuid().equals("no_binding")) {
+            if (!exchangeByWeb.getGroup_uuid().split("#")[0].equals("no_binding")) {
                 return new ErrorMap().errorMap("该网站UUID已经绑定QQBotUUID");
             }
             // 未转换
@@ -52,7 +52,7 @@ public class BotBindingService {
         // 新建临时模型对象
         UserExchangeUuidModel tempExchange = new UserExchangeUuidModel();
         tempExchange.setWeb_uuid(uuid);
-        tempExchange.setGroup_uuid("no_binding");
+        tempExchange.setGroup_uuid("no_binding#" + System.currentTimeMillis());
         tempExchange.setCode(code);
         tempExchange.setExpiration(System.currentTimeMillis() + (3600 * 1000 * 24));
         // 不存在转换记录
