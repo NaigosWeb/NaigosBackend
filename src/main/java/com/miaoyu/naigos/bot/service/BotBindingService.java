@@ -63,6 +63,18 @@ public class BotBindingService {
         return new SuccessMap().standardSuccessMap(code);
     }
 
+    public Map<String, Object> botVerifyCodeService(String uuid, String code) {
+        boolean b = botBindingMapper.updateUserGroupUuidByCode(uuid, code);
+        if (!b) {
+            return new ErrorMap().errorMap("验证码错误！");
+        }
+        boolean b1 = botBindingMapper.updateRemoveCodeByGroupUuid(uuid);
+        if (!b1) {
+            return new ErrorMap().errorMap("服务器解除锁定验证状态失败！");
+        }
+        return new SuccessMap().standardSuccessMap("验证码匹配并绑定！");
+    }
+
     // 私有 生成安全验证码
     private String generateCode(){
         Random random = new Random();
@@ -71,7 +83,7 @@ public class BotBindingService {
             int randomNum = random.nextInt(10);
             sb.append(randomNum);
         }
-        return passwordHash(sb.toString());
+        return passwordHash(sb.toString() + System.currentTimeMillis());
     }
     // 私有 根据加盐值和SHA256计算密码的哈希值
     private String passwordHash(String target){
