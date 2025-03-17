@@ -14,6 +14,15 @@ public class UserArchiveModel {
     private Integer favorite;
     private String email;
     private Integer safe_level;
+    private boolean is_bot_memory;
+
+    public boolean isIs_bot_memory() {
+        return is_bot_memory;
+    }
+
+    public void setIs_bot_memory(boolean is_bot_memory) {
+        this.is_bot_memory = is_bot_memory;
+    }
 
     public Integer getId() {
         return id;

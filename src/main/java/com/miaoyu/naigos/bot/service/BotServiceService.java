@@ -8,6 +8,7 @@ import com.miaoyu.naigos.model.UserPasswordModel;
 import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
 import com.miaoyu.naigos.user.mapper.GetUserPasswordMapper;
 import com.miaoyu.naigos.user.service.UserCheckinService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,16 @@ public class BotServiceService {
         if (userArchiveByQqId != null) {
             return new ErrorMap().errorMap("您的QQ已存在！");
         }
+        UserArchiveModel userArchive = getUserArchiveModel(uuid, qqId);
+        boolean b = botServiceMapper.botInsertArchive(userArchive);
+        if (!b) {
+            return new ErrorMap().errorMap("注册失败！");
+        }
+        return new SuccessMap().standardSuccessMap("注册成功！");
+    }
+
+    @NotNull
+    private static UserArchiveModel getUserArchiveModel(String uuid, long qqId) {
         UserArchiveModel userArchive = new UserArchiveModel();
         userArchive.setQq_id(qqId);
         userArchive.setGroup_real_user_id(uuid);
@@ -43,11 +54,8 @@ public class BotServiceService {
         userArchive.setScore(0);
         userArchive.setAvatar("https://q1.qlogo.cn/g?b=qq&nk=" + userArchive.getQq_id().toString() + "&s=640");
         userArchive.setSafe_level(10);
-        boolean b = botServiceMapper.botInsertArchive(userArchive);
-        if (!b) {
-            return new ErrorMap().errorMap("注册失败！");
-        }
-        return new SuccessMap().standardSuccessMap("注册成功！");
+        userArchive.setIs_bot_memory(true);
+        return userArchive;
     }
 
     public Map<String, Object> botServiceCheckInService(String uuid) {
