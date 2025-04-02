@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.4.0neo2</version>
+    <version>0.5.0</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Bot after binding change user archive is_bot_memory is true.
+        Add AI chat current and record name.
     </description>
     <url/>
     <licenses>

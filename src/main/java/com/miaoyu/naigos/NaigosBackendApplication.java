@@ -15,7 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "com.miaoyu.naigos.api.Theme.mapper",
         "com.miaoyu.naigos.api.BlueArchive.mapper",
         "com.miaoyu.naigos.api.Blog.mapper",
-        "com.miaoyu.naigos.api.File.mapper"
+        "com.miaoyu.naigos.api.File.mapper",
+        "com.miaoyu.naigos.ai.mapper"
 })
 public class NaigosBackendApplication {
 
