@@ -13,6 +13,6 @@ public interface UserAIMapper {
     boolean insertNameByGroupUuid(UserAIEntity userAIEntity);
     @Update("UPDATE users_ai SET name = #{name} WHERE uuid = #{uuid}")
     boolean updateNameByGroupUuid(UserAIEntity userAIEntity);
-    @Update("UPDATE users_ai SET max_session = #{max_session}, expiration_session = #{expiration_session} WHERE uuid = #{uuid}")
-    boolean restoreMaxSessionByGroupUuid(UserAIEntity userAIEntity);
+    @Update("UPDATE users_ai SET max_session = 10, expiration_session = null WHERE uuid = #{uuid}")
+    boolean restoreMaxSessionByGroupUuid(String uuid);
 }

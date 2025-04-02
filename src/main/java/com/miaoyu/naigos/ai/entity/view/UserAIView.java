@@ -1,11 +1,10 @@
-package com.miaoyu.naigos.ai.entity;
+package com.miaoyu.naigos.ai.entity.view;
 
-public class UserAIEntity {
+public class UserAIView {
     private String uuid;
     private String name;
     private String character_design;
     private int max_session;
-    private long expiration_session;
 
     public String getUuid() {
         return uuid;
@@ -37,13 +36,5 @@ public class UserAIEntity {
 
     public void setMax_session(int max_session) {
         this.max_session = max_session;
-    }
-
-    public long getExpiration_session() {
-        return expiration_session;
-    }
-
-    public void setExpiration_session(long expiration_session) {
-        this.expiration_session = expiration_session;
     }
 }

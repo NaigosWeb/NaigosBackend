@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1neo</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Add AI chat current and record name.
+        Fix get user AI current expiration to view 2.
     </description>
     <url/>
     <licenses>

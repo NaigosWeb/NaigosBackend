@@ -4,8 +4,6 @@ import com.miaoyu.naigos.ai.entity.UserAIEntity;
 import com.miaoyu.naigos.ai.map.AIErrorMap;
 import com.miaoyu.naigos.ai.map.AISuccessMap;
 import com.miaoyu.naigos.ai.mapper.UserAIMapper;
-import com.miaoyu.naigos.bot.mapper.BotBindingMapper;
-import com.miaoyu.naigos.model.UserExchangeUuidModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +22,14 @@ public class GetUserAIService {
         if (userAI == null) {
             return new AISuccessMap().noSuchUserSuccess();
         }
-        if (userAI.getExpiration_session() <= System.currentTimeMillis()) {
-            userAI.setMax_session(10);
-            userAI.setExpiration_session(null);
-            boolean b = userAIMapper.restoreMaxSessionByGroupUuid(userAI);
-            if (b) {
-                return new AISuccessMap().ok(userAI);
+        if (10 < userAI.getMax_session()) {
+            if (userAI.getExpiration_session() < System.currentTimeMillis()) {
+                boolean b = userAIMapper.restoreMaxSessionByGroupUuid(uuid);
+                if (b) {
+                    return new AISuccessMap().ok(userAI);
+                }
+                return new AIErrorMap().recordError();
             }
-            return new AIErrorMap().recordError();
         }
         return new AISuccessMap().ok(userAI);
     }
