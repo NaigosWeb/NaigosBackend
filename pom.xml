@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.5.1neo</version>
+    <version>0.6.0</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Fix get user AI current expiration to view 2.
+        New Blue Archive about api to rewrite.
     </description>
     <url/>
     <licenses>
