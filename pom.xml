@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.miaoyu</groupId>
     <artifactId>Naigos</artifactId>
-    <version>0.6.1</version>
+    <version>0.6.1neo</version>
     <name>Naigos</name>
     <description>
         Naigos Web and Bot backend by JavaWeb from Springboot and Mybatis.
-        Add ba first classify api.
+        Add get Blue archive club by id api.
     </description>
     <url/>
     <licenses>

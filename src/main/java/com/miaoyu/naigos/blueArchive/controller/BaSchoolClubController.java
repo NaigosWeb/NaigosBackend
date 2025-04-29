@@ -40,7 +40,7 @@ public class BaSchoolClubController {
     public Map<String, Object> getBaClubOnlyControl(
             @RequestParam("club_id") String clubId
     ) {
-        return null;
+        return baSchoolClubService.getBaClubByIdService(clubId);
     }
 
     /**上传club参数
