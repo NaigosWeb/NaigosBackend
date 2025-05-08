@@ -39,6 +39,7 @@ public class JwtSigned {
 
         claims.put(targetIdName, target);
         claims.put("source", tokenRule);
+        claims.put("service", "naigos");
         return Jwts.builder()
                 .signWith(key, Jwts.SIG.HS256)
                 .issuer(issuer)
