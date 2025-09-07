@@ -34,7 +34,6 @@ public class BlogLikeFavoritesController {
         if ((int) payload.get("code") == 1){
             return payload;
         }
-//        int userId = Integer.parseInt(payload.get("userId").toString());
         String uuid = payload.get("data").toString();
         UserArchiveModel userArchive = getUserArchiveMapper.getUserArchiveByUuid(uuid);
         if (userArchive == null) {
