@@ -3,6 +3,9 @@ package com.miaoyu.naigos.api.Blog.controller;
 
 import com.miaoyu.naigos.api.Blog.entity.BlogLikeEntity;
 import com.miaoyu.naigos.api.Blog.service.BlogLikeFavoritesService;
+import com.miaoyu.naigos.constantsMap.ErrorMap;
+import com.miaoyu.naigos.model.UserArchiveModel;
+import com.miaoyu.naigos.user.mapper.GetUserArchiveMapper;
 import com.miaoyu.naigos.utils.NeedTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,9 @@ public class BlogLikeFavoritesController {
     @Autowired
     private BlogLikeFavoritesService blogLikeFavoritesService;
 
+    @Autowired
+    private GetUserArchiveMapper getUserArchiveMapper;
+
     @PostMapping("/addBlogLike")
     public Map<String, Object> addBlogLikeControl(
             @RequestHeader("Authorization") String token,
@@ -28,7 +34,13 @@ public class BlogLikeFavoritesController {
         if ((int) payload.get("code") == 1){
             return payload;
         }
-        int userId = Integer.parseInt(payload.get("userId").toString());
+//        int userId = Integer.parseInt(payload.get("userId").toString());
+        String uuid = payload.get("data").toString();
+        UserArchiveModel userArchive = getUserArchiveMapper.getUserArchiveByUuid(uuid);
+        if (userArchive == null) {
+            return new ErrorMap().noSuchArchive();
+        }
+        int userId = userArchive.getId();
         return blogLikeFavoritesService.executeBlogLikeService(userId, toggle_type, blog_id);
     }
 
